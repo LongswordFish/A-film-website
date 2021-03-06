@@ -1,0 +1,148 @@
+<section id="home_page">      
+    <!-- slides-show credit to bootstrap-->
+    <section id="#slides-show">
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                    aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                    aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                    aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <a href="#featured_films">
+                        <img src="/images/slides_show/slide_show_1.png" class="d-block w-100" alt="slide_show_1">
+                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5 style="color: burlywood;"></h5>
+                        <p style="color: burlywood;"></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a href="#featured_TVs">
+                        <img src="/images/slides_show/slide_show_2.png" class="d-block w-100" alt="slide_show_2">
+                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5></h5>
+                        <p></p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <a href="#spotlight">
+                        <img src="/images/slides_show/slide_show_3.png" class="d-block w-100" alt="slide_show_3">
+                    </a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5></h5>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+    <!-- slides-show -->
+    
+    <!-- featured_films -->
+    <section id="featured_films">
+        <div class="container">
+            {{!-- title for this section --}}
+            <p style="font-size: large; color:black; font-weight: bolder;">Featured Films</p>
+            {{!-- title for this section --}}
+
+            {{!-- contents --}}
+            <div class="row" id="featured_films2">
+                {{#each featuredMovies}}
+                <div class="card pic col-6 col-md-2 col-sm-3">
+                    <p class="card-text" style="font-size: smaller; display:flex;justify-content: space-between;">
+                        <span>Rent:${{this.price_to_rent}}</span>
+                        <span>Buy:${{this.price_to_purchase}}</span>
+                    </p>
+                    <a href="/movies/{{this.id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+            {{!-- contents --}}
+        </div>
+    </section>
+    <!-- featured_films -->
+    
+    <!-- featured_TVs -->
+    <section id="featured_TVs">
+        <div class="container" style="margin-top:50px;">
+            {{!-- title for this section --}}
+            <p style="font-size: large; color:black; font-weight: bolder;">Featured TVs</p>
+            {{!-- title for this section --}}
+
+             {{!-- contents --}}
+            <div class="row">
+                {{#each featuredTVs}}
+                <div class="card pic col-6 col-md-2 col-sm-3">
+                    <p class="card-text" style="font-size: smaller; display:flex;justify-content: space-between;">
+                        <span>Rent:${{this.price_to_rent}}</span>
+                        <span>Buy:${{this.price_to_purchase}}</span>
+                    </p>
+                    <a href="/movies/{{this.id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+             {{!-- contents --}}
+        </div>
+    </section>
+    <!-- featured_TVs -->
+    
+    <!-- spotlight -->
+    <section id="spotlight">
+        <div class="container" style="margin-top:50px;">
+            <div class="row">
+                {{!-- title for this section --}}
+                <div class="col-md-2">
+                    <div class="card-body">
+                        <h4 class="card-title text-uppercase" style="padding-top: 100px; font-size:1.3em; color:skyblue" >all the best crime movies</h5>
+                            <p class="card-text"> Get all the best crime movies </p>
+                            <p class="card-text"><small class="text-muted">Only $5.99</small></p>
+                    </div>
+                </div>
+                {{!-- title for this section --}}
+
+                {{!-- contents --}}
+                <div class="col-md-10">
+                    <div class="row ">
+                        {{#each crimes}}  {{!-- we can change to other type of movies --}}
+                        <div class="card pic col-6 col-md-2 col-sm-3">
+                            <p class="card-text" style="font-size: smaller; display:flex;justify-content: space-between;">
+                                <span>Rent:${{this.price_to_rent}}</span>
+                                <span>Buy:${{this.price_to_purchase}}</span>
+                            </p>
+                            <a href="/movies/{{this.id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
+                            <div class="card-body">
+                                <h5 class="card-title">{{this.title}}</h5>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+                {{!-- contents --}}
+            </div>
+        </div>
+    </section>
+    <!-- featured_TVs -->
+
+</section>
+

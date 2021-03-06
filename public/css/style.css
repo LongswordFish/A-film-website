@@ -1,0 +1,399 @@
+/* 25th Feb. 2021 backup: before adding small img in movieDetail page */
+
+/* for cards in all pages */
+.card{
+  height:350px;
+  width: 200px;
+  margin:auto;
+  margin-top:20px;
+  /* background-color:rgba(128, 128, 128, 0.233); */
+  /* background-color:lightskyblue; */
+  background-color: black;
+  color:white;
+  border-radius: 2%;
+}
+.card-img{
+  margin-top: 0;
+  height:250px;
+}
+.card-text{
+  margin-bottom: 5px;
+  padding: auto;
+
+}
+
+h5.card-title{
+    text-align: center;
+}
+/* for cards in all pages */
+
+/* For main.handlebars */
+/* For modals */
+#register{
+  padding: 16px 10px;
+  display:grid;
+  grid-row-gap:15px ;
+  align-items: center;
+  font-weight: bolder;
+}
+
+#signIn{
+  padding: 16px 10px;
+  display:grid;
+  grid-row-gap:15px ;
+  align-items: center;
+  font-weight: bolder;
+}
+/* For modals */
+
+/* For footer */
+
+.icon-wrapper{
+  /* margin-top: 10px; */
+  width:150px;
+  display: flex;
+  justify-content: space-between;
+  margin: 10px auto auto;
+}
+
+@media only screen and (min-device-width: 1025px) {
+
+  .icon-wrapper{
+    /* margin-top: 10px; */
+    width:150px;
+    display: flex;
+    justify-content: space-between;
+    margin-left:0px;
+  }
+}
+
+
+/* For main.handlebars */
+
+/* For home.handlebars */
+/* For carousel */
+
+@media only screen and (min-device-width: 1025px) {
+  .carousel-inner{
+    max-width:100%;
+    max-height: 500px !important;
+  }
+  
+  .carousel-item{
+    max-height: 500px !important;
+  }
+  
+}
+
+/* Use a media query to add a breakpoint at 800px: */
+@media only screen and (min-device-width: 769px) and  (max-device-width: 1024px){
+  .carousel-inner{
+    max-width:100%;
+    max-height: 350px !important;
+  }
+  
+  .carousel{
+    height:350px;
+  }
+}
+
+/* Use a media query to add a breakpoint at 768px: */
+@media only screen and (max-device-width: 768px){
+  .carousel-inner{
+    max-width:100%;
+    max-height: 25vw !important;
+  }
+  
+  .carousel{
+    height:25vw ;
+  }
+}
+
+#featured_films{
+  /* margin-top:150px; */
+  margin-top:8vw;
+}
+/* For carousel */
+/* For home.handlebars */
+
+
+
+/* For movieListing.handlebars */
+/* For titlebuttons */
+
+/* Use a media query to add a breakpoint at 800px: */
+@media only screen and (min-device-width: 769px) {
+  .listing ul{
+    display: flex;
+    justify-content: space-between;
+    width:500px;
+    margin: auto;
+  }
+  
+  .listing li{
+    display:inline-block;
+
+  }
+}
+
+@media only screen and (min-device-width: 401px)and (max-device-width: 768px) {
+  .listing ul{
+    display: flex;
+    justify-content: space-between;
+    width:60vw;
+    margin: auto;
+  }
+  
+  .listing li{
+    display:inline-block;
+
+  }  
+}
+
+/* Use a media query to add a breakpoint at 768px: */
+@media only screen and (max-device-width: 400px){
+  .listing ul{
+    width:80%;
+    margin: auto;
+  }
+  
+  .listing li{
+    display:block;
+    text-align: center;
+  }
+  .delimter{
+    display: none;
+
+  }
+}
+
+.movieListingButton{
+  font-size: large; 
+  color:black; 
+  font-weight: bolder;
+}
+
+.delimter{
+  color:rgb(0, 195, 255); padding-top:6px;font-weight:bolder
+}
+
+.row{
+  width: 100%;
+}
+
+/* For titlebuttons */
+/* For movieListing.handlebars */
+
+
+/* For movieDetail.handlebars */
+
+@media only screen and (min-device-width: 1024px){
+  .containerInDetail{
+    margin: auto;
+    display: flex;
+    height:600px;
+    color:white;
+  }
+  
+  .bigPic{
+    flex:1;
+    padding-left: 0;
+    padding-right:0;
+    max-height: 600px !important;
+  }
+  .bigPic img{
+    width:100%;
+    height:100%;
+
+  }
+
+  .cardInDetail{
+    height:600px;
+    width:320px;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: 0;
+    background-color: black;
+    color:white;
+  
+  }
+
+  .smallPic{
+    display: none;
+  }
+
+  .titileInDetail{
+    font-size: 2.3em;
+    font-weight: bolder;
+    padding-top: 150px;
+    color:gold;
+  
+  }
+}
+
+
+@media only screen and (min-device-width: 400px) and (max-device-width: 1024px){
+  .containerInDetail{
+    margin: auto;
+    display: flex;
+    color:white;
+  }
+  
+  .bigPic{
+    width:100%;
+    padding-left: 0;
+    padding-right:0;
+    max-height: 600px !important;
+  }
+  .bigPic img{
+    width:100%;
+    height:100%;
+
+  }
+
+  .cardInDetail{
+    height:600px;
+    width:30%;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: 0;
+    background-color: black;
+    color:white;
+    font-size:0.5em;
+  
+  }
+
+  .smallPic{
+    flex:1;
+    max-height: 600px !important;
+    float: left;
+    padding-right:0;
+  }
+  .smallPic img{
+    width:100%;
+    height:100%;
+  }
+
+
+  .titileInDetail{
+    font-size: 2.3em;
+    font-weight: bolder;
+    padding-top: 20vw;
+    color:gold;
+  }
+}
+
+@media only screen and (max-device-width: 399px){
+  .containerInDetail{
+    margin: auto;
+    display: flex;
+    height:600px;
+    color:white;
+  }
+  
+  .bigPic{
+    padding-left: 0;
+    padding-right:0;
+    max-height: 600px !important;
+  }
+  .bigPic img{
+    width:100%;
+    height:100%;
+
+  }
+
+  .cardInDetail{
+    height:400px;
+    width:100%;
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: 0;
+    background-color: black;
+    color:white;
+    font-size:0.8em;
+  
+  }
+
+  .smallPic{
+    display: none;
+  }
+
+  .titileInDetail{
+    font-size: 2.3em;
+    font-weight: bolder;
+    padding-top: 150px;
+    color:gold;
+  
+  }
+}
+/* .containerInDetail{
+  margin: auto;
+  display: flex;
+  height:600px;
+  color:white;
+  
+}
+
+.bigPic{
+  padding-left: 0;
+  padding-right:0;
+}
+.bigPic img{
+  width:100%;
+  height:100%;
+  max-height: 600px !important;
+}
+
+
+.cardInDetail{
+  height:600px;
+  padding-left: 25px;
+  padding-right: 25px;
+  margin-left: auto;
+  background-color: black;
+
+} */
+
+
+/* .titileInDetail{
+  font-size: 2.3em;
+  font-weight: bolder;
+  padding-top: 150px;
+  color:gold;
+
+} */
+
+.movieType{
+  color:skyblue;
+}
+
+.desInDetail{
+  font-style: italic;
+}
+
+.price{
+  display: flex;
+  justify-content: space-between;
+  color:skyblue;
+}
+
+/* For movieDetail.handlebars */
+
+
+/* For 404 page */
+
+#_404_page img{
+  max-width: 100%;
+}
+
+#_404_page h1{
+  margin-top: 30px;
+  text-align: center;
+}
+
+#_404_page p{
+  margin-top: 20px;
+  text-align: center;
+  font-size: 1.2em;
+}
+/* For 404 page */

@@ -1,0 +1,42 @@
+<section id="movieListing_page" class="listing">
+    <div class="container" style="margin-top:50px;">
+        {{!-- buttons --}}
+        <ul class=""> 
+            {{!-- me-auto mb-2 mb-lg-0 --}}
+            <li>
+                <a href='/listing/movies'><button type="button" class="btn movieListingButton" id="movieBtn" >Movies</button></a>  
+            </li>
+            <li>
+                <p class="delimter"  > | </p>
+            </li>
+            <li>
+                <a href='/listing/TVs'><button type="button" class="btn movieListingButton" id="TVBtn"> TVs</button></a>  
+            </li>
+            <li>
+                <p class="delimter" > | </p>
+            </li>
+            <li>
+                <a href='/listing/all'><button type="button" class="btn movieListingButton" id="allBtn"> All</button></a>  
+            </li>
+        </ul>
+        {{!-- buttons --}}
+
+        {{!-- movies and or TVs --}}
+        <div class="row" id="listing">
+            {{#each movies}}
+                <div class="card pic col-6 col-md-2 col-sm-3">
+                    <p class="card-text" style="font-size: smaller; display:flex;justify-content: space-between;">
+                        <span>Rent:${{this.price_to_rent}}</span>
+                        <span>Buy:${{this.price_to_purchase}}</span>
+                    </p>
+                    <a href="/movies/{{this.id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.title}}</h5>
+                    </div>
+                </div>
+            {{/each}}
+
+        </div>
+        {{!-- movies and or TVs --}}
+    </div>
+</section>
