@@ -46,7 +46,7 @@ app.get("/movies/:id",(req,res)=>{
     });
 })
 
-//route for movieListing
+//route for movieListing 
 app.get("/listing/:type",(req,res)=>{
 
     const type= req.params.type;
