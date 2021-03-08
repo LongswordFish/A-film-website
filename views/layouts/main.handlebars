@@ -58,14 +58,10 @@
 
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#registerModel">
-                                Register
-                            </button>
+                            <a class="nav-link active" aria-current="page" href="/register">Register</a>
                         </li>
                         <li class="nav-item">
-                            <button type="button" class="btn " data-bs-toggle="modal" data-bs-target="#signInModel">
-                                Sign In
-                            </button>
+                            <a class="nav-link active" aria-current="page" href="/signIn">Sign In</a>                
                         </li>
                     </ul>
 
@@ -87,60 +83,7 @@
 
 
     <main>
-        <!-- Modal credit to bootstrap-->
-        <div class="modal fade" id="registerModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Register</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="register" action="/sendMSG" method="POST">
-                            Username<input id="username_res" name="name" type="text" tabindex="1" maxlength="25" > 
-                            <p></p>       
-                            Password<input id="password_res" name="password" type="password"  tabindex="2" maxlength="25" >
-                            <p></p>       
-                            Email Address<input id="email_res" name="email" autocomplete="email" type="email" tabindex="3" >
-                            <div class="modal-footer">
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                                <input type="submit" class="btn btn-primary"/>
-                            </div>
-                        </form>
 
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- Modal credit to bootstrap-->
-        <!-- Modal credit to bootstrap-->
-        <div class="modal fade" id="signInModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-            aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="staticBackdropLabel">Sign In</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="signIn" action="/sendMSG" method="POST">
-                            Username<input id="username_signIN" name="name" type="text" tabindex="1" maxlength="25" required>    
-                            <p>OR</p>
-                            Email <input id="email_signIN" name="email" autocomplete="email" type="email" tabindex="2" required>   
-                            Password<input id="password_signIN" name="password" type="password" autocomplete="current-password" ="3" maxlength="25" required>                           
-                            <div class="modal-footer">
-                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Clear</button>
-                                <input type="submit" class="btn btn-primary"/>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-        <!-- Modal credit to bootstrap-->
         {{{body}}}
 
     </main>

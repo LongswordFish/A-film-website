@@ -31,7 +31,6 @@ app.use(bodyParser.urlencoded({extended: false}));
 //routes
 //route for home page
 app.get("/",(req,res)=>{
-    console.log("home route")
     res.render("home",{
         title : "home",
         featuredMovies: movies.getFeaturedMovies(),
@@ -40,40 +39,106 @@ app.get("/",(req,res)=>{
     });
 })
 
-
-
-app.get("/sendMSG",(req,res)=>{
-    console.log("msg got")
-    res.render("sendMSG",{
-        title : "sendMSG",
-        featuredMovies: movies.getFeaturedMovies(),
-        featuredTVs: movies.getFeaturedTVs(),
-        crimes: movies.getCrimes()
+app.get("/register",(req,res)=>{
+    res.render("register",{
+        title : "register"
     });
-
 });
 
+app.get("/signIn",(req,res)=>{
+    res.render("signIn",{
+        title : "signIn"
+    });
+});
 
 //route for home page
 app.post("/sendMSG",(req,res)=>{
-    console.log(`the name of the post it ${req.body.name}`);
 
-    res.setHeader('Access-Control-Allow-Origin','*');
+    // res.setHeader('Access-Control-Allow-Origin','*');
 
-    let error_0="", error_1="", error_2="";
-    if(req.body.name==="") 
-        error_0="Name is required!";
-    if(req.body.password==="")
-        error_1="Password is required!";
-    if(req.body.email==="")
-        error_2="Email is required!";
-    if(error_0!==""||error_1!==""||error_2!==""){
-        res.render("sendMSG",{
-            is_error_0:true,
-            error_1:error_1,
-            error_2:error_2,
-        })
-    }
+    //if the register page is posted
+    if(req.body.form_name==="register"){
+
+        //declare local variables 
+        const {name,password,email}=req.body;
+        let error_0=false, error_1=false, error_2=false, error_3=false;
+
+        //check if the name is empty
+        if(name===""){
+            error_0=true;
+        }
+        //check if the password is valid
+        var passwordTest=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/; 
+        if(password.length<8){
+            error_1=true;
+        }
+        else if(!passwordTest.test(password)){
+            error_2=true;
+        }
+        //check if the email is valid
+        var emailTest=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+        if(!emailTest.test(email)){
+            error_3=true;
+        }
+        //if not all fields are valid
+        if(error_0||error_1||error_2||error_3){
+            res.render("register",{
+                title : "register",
+                name:name,
+                password:password,
+                email:email,
+                is_error_0:error_0,
+                is_error_1:error_1,
+                is_error_2:error_2,
+                is_error_3:error_3,
+            })
+        }
+        //if all fields are valid
+        else{
+            res.render("home",{
+                title : "home",
+                featuredMovies: movies.getFeaturedMovies(),
+                featuredTVs: movies.getFeaturedTVs(),
+                crimes: movies.getCrimes()
+            });
+        }
+
+    } 
+    //if the signIn page is posted
+    else if(req.body.form_name==="signIn"){
+        const {email,password}=req.body;
+        let error_0=false, error_1=false;
+
+        //check if the email is empty
+        if(email===""){
+            error_0=true;
+        }
+        //check if the password is valid
+        if(password===""){
+            error_1=true;
+        }
+        //if not all fields are valid
+        if(error_0||error_1){
+            res.render("signIn",{
+                title : "signIn",
+                password:password,
+                email:email,
+                is_error_0:error_0,
+                is_error_1:error_1
+            })
+        }
+        //if all fields are valid
+        else{
+            res.render("home",{
+                title : "home",
+                featuredMovies: movies.getFeaturedMovies(),
+                featuredTVs: movies.getFeaturedTVs(),
+                crimes: movies.getCrimes()
+            });
+        }
+    } 
+
+
 
 });
 

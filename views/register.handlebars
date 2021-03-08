@@ -1,0 +1,45 @@
+<section>
+    <div style="height:400px;">
+
+    </div>
+        <!-- Modal credit to bootstrap-->
+        <div class="modal fade" id="registerModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+            aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="staticBackdropLabel">Register</h5>
+                        <button id="closeBtn" type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>                     
+                    </div>
+                    <div class="modal-body">
+                        <form id="register" action="/sendMSG" method="POST">
+                            Username<input id="username_res" name="name" type="text" tabindex="1" maxlength="25" value={{name}}> 
+                            {{#if is_error_0}}
+                            <p style="color:red; font-size:0.8em;">Name is required!</p>
+                            {{/if}}       
+                            Password<input id="password_res" name="password" type="password"  tabindex="2" maxlength="25" value={{password}}>
+                            {{#if is_error_1}}
+                            <p style="color:red; font-size:0.8em;">Password needs to be at least 8 characters</p>  
+                            {{/if}}
+                            {{#if is_error_2}}
+                            <p style="color:red; font-size:0.8em;">At least one upper character, one lower character and one digit are needed</p>  
+                            {{/if}}        
+                            Email Address<input id="email_res" name="email" autocomplete="email" tabindex="3" value={{email}} >
+                            {{#if is_error_3}}
+                            <p style="color:red; font-size:0.8em;">The format of the email is wrong</p>
+                            {{/if}} 
+                            <input type="hidden" name="form_name" value ="register"/>  
+                            <div class="modal-footer">
+                                <button type="reset" id="clearBtn" class="btn btn-secondary">Clear</button>
+                                <input type="submit" class="btn btn-primary"/>
+                            </div>
+                            <div style="display: flex; justify-content: space-between;padding:0.75rem">
+                            <span>Already have an account?</span><a href="/signIn"> <input class="btn btn-success" style="margin-left:auto" value="Sign In"/> </a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal credit to bootstrap-->
+</section>

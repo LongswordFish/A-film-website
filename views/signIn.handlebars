@@ -1,0 +1,38 @@
+<section>
+     <div style="height:400px;"></div>
+    <!-- Modal credit to bootstrap-->
+    <div class="modal fade" id="signInModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel">Sign In</h5>
+                    <button type="button" id="closeBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="signIn" action="/sendMSG" method="POST">
+                        Email <input id="email_signIN" name="email" autocomplete="email" tabindex="2" value={{email}}>
+                        {{#if is_error_0}}
+                            <p style="color:red; font-size:0.8em;">Name is required!</p>
+                        {{/if}}  
+                        Password<input id="password_signIN" name="password" type="password"
+                            autocomplete="current-password"="3" maxlength="25" value={{password}}>
+                        {{#if is_error_1}}
+                            <p style="color:red; font-size:0.8em;">password is required!</p>
+                        {{/if}}  
+                        <input type="hidden" name="form_name" value ="signIn"/>  
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary">Clear</button>
+                            <input type="submit" class="btn btn-primary" />
+                        </div>
+                        <div style="display: flex; justify-content: space-between;padding:0.75rem">
+                            <span>Don't have an account?</span><a href="/register"> <input class="btn btn-success" style="margin-left:auto" value="Sign UP"/> </a>
+                        </div>
+                    </form>
+                </div>
+    
+            </div>
+        </div>
+    </div>
+    <!-- Modal credit to bootstrap-->
+</section>
