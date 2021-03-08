@@ -97,16 +97,20 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="register" action="https://httpbin.org/post" method="POST">
-                            Username<input id="username_res" name="name" type="text" tabindex="1" maxlength="25" required>        
-                            Password<input id="password_res" name="password" type="password"  tabindex="2" maxlength="25" required>
-                            Email Address<input id="email_res" name="email" autocomplete="email" type="email" tabindex="3" required>
+                        <form id="register" action="/sendMSG" method="POST">
+                            Username<input id="username_res" name="name" type="text" tabindex="1" maxlength="25" > 
+                            <p></p>       
+                            Password<input id="password_res" name="password" type="password"  tabindex="2" maxlength="25" >
+                            <p></p>       
+                            Email Address<input id="email_res" name="email" autocomplete="email" type="email" tabindex="3" >
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                <input type="submit" class="btn btn-primary"/>
+                            </div>
                         </form>
+
                     </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" >Submit</button>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -121,22 +125,22 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form id="signIn" action="https://httpbin.org/post" method="POST">
+                        <form id="signIn" action="/sendMSG" method="POST">
                             Username<input id="username_signIN" name="name" type="text" tabindex="1" maxlength="25" required>    
                             <p>OR</p>
                             Email <input id="email_signIN" name="email" autocomplete="email" type="email" tabindex="2" required>   
                             Password<input id="password_signIN" name="password" type="password" autocomplete="current-password" ="3" maxlength="25" required>                           
+                            <div class="modal-footer">
+                                <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Clear</button>
+                                <input type="submit" class="btn btn-primary"/>
+                            </div>
                         </form>
                     </div>
-                    <div class="modal-footer">
-                        <button type="reset" class="btn btn-secondary" data-bs-dismiss="modal">Clear</button>
-                        <button type="submit" class="btn btn-primary" >Submit</button>
-                    </div>
+
                 </div>
             </div>
         </div>
         <!-- Modal credit to bootstrap-->
-        
         {{{body}}}
 
     </main>
@@ -191,7 +195,7 @@
                 <!--Grid column-->
                 <div class="col-lg-4 col-md-6 mb-4 mb-md-0">
                     <h5 class="text-uppercase">© 2020 Copyright:</h5>
-                    <p> Jianchang (Robin) YU</p>
+                    <p > Jianchang (Robin) YU</p>
                 </div>
                 <!--Grid column-->
             </div>
@@ -201,7 +205,8 @@
 
     </footer>
     <!-- Footer -->
-
+    
+    
     <script src="/js/bootstrap.bundle.js"></script>
 
 

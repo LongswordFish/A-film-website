@@ -11,18 +11,21 @@ const bodyParser = require('body-parser');
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
+const { response } = require("express");
 
 const app = express();
-
-//which static routes are
-app.use(express.static("public"));
 
 //which template engine is used in this project
 app.engine('handlebars',exphbs());
 app.set('view engine', 'handlebars');
 
+
+//which static routes are
+app.use(express.static("public"));
+
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+app.use(bodyParser.urlencoded({extended: false}));
+// var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
 //routes
@@ -36,6 +39,43 @@ app.get("/",(req,res)=>{
         crimes: movies.getCrimes()
     });
 })
+
+
+
+app.get("/sendMSG",(req,res)=>{
+    console.log("msg got")
+    res.render("sendMSG",{
+        title : "sendMSG",
+        featuredMovies: movies.getFeaturedMovies(),
+        featuredTVs: movies.getFeaturedTVs(),
+        crimes: movies.getCrimes()
+    });
+
+});
+
+
+//route for home page
+app.post("/sendMSG",(req,res)=>{
+    console.log(`the name of the post it ${req.body.name}`);
+
+    res.setHeader('Access-Control-Allow-Origin','*');
+
+    let error_0="", error_1="", error_2="";
+    if(req.body.name==="") 
+        error_0="Name is required!";
+    if(req.body.password==="")
+        error_1="Password is required!";
+    if(req.body.email==="")
+        error_2="Email is required!";
+    if(error_0!==""||error_1!==""||error_2!==""){
+        res.render("sendMSG",{
+            is_error_0:true,
+            error_1:error_1,
+            error_2:error_2,
+        })
+    }
+
+});
 
 
 //route for movieDetail
@@ -80,8 +120,12 @@ app.use((req, res) => {
     res.sendFile(path);
 });
 
+
+
+
+
 //define the port used for this application
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 app.listen(PORT,()=>{
     console.log(`Web page is listenning on port: ${PORT}`);
 })
