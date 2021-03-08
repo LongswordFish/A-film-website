@@ -379,6 +379,25 @@ h5.card-title{
 
 /* For movieDetail.handlebars */
 
+/* For welcome page */
+#welcome_page{
+  /* height:400px; */
+}
+
+#welcome_page .card{
+ width: 18rem;
+ height:200px;
+}
+#welcome_page a{
+  color:white;
+}
+
+#welcome_page h2{
+  text-align: center;
+  color: darkturquoise;
+  margin:60px auto 60px;
+}
+/* For welcomepage */
 
 /* For 404 page */
 

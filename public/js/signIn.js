@@ -10,9 +10,8 @@ window.onload=function(){
     var clearBtn= document.getElementById('clearBtn');
     clearBtn.addEventListener('click',()=>{
         var password=document.getElementById('password_signIN');
-        var email=document.getElementById('email_signIN');
+        var username=document.getElementById('username_signIN');
         password.setAttribute('value',"");
-        email.setAttribute('value',"");
-
+        username.setAttribute('value',"");
     })
 };

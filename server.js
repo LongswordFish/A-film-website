@@ -14,6 +14,7 @@ const movies = require("./model/FakeDB");
 const { response } = require("express");
 
 const app = express();
+var usernameGlobal="";
 
 //which template engine is used in this project
 app.engine('handlebars',exphbs());
@@ -33,6 +34,7 @@ app.use(bodyParser.urlencoded({extended: false}));
 app.get("/",(req,res)=>{
     res.render("home",{
         title : "home",
+        signedIn:false,
         featuredMovies: movies.getFeaturedMovies(),
         featuredTVs: movies.getFeaturedTVs(),
         crimes: movies.getCrimes()
@@ -41,13 +43,15 @@ app.get("/",(req,res)=>{
 
 app.get("/register",(req,res)=>{
     res.render("register",{
-        title : "register"
+        title : "register",
+        signedIn:false,
     });
 });
 
 app.get("/signIn",(req,res)=>{
     res.render("signIn",{
-        title : "signIn"
+        title : "signIn",
+        signedIn:false,
     });
 });
 
@@ -84,6 +88,7 @@ app.post("/sendMSG",(req,res)=>{
         if(error_0||error_1||error_2||error_3){
             res.render("register",{
                 title : "register",
+                signedIn:false,
                 name:name,
                 password:password,
                 email:email,
@@ -97,6 +102,7 @@ app.post("/sendMSG",(req,res)=>{
         else{
             res.render("home",{
                 title : "home",
+                signedIn:false,
                 featuredMovies: movies.getFeaturedMovies(),
                 featuredTVs: movies.getFeaturedTVs(),
                 crimes: movies.getCrimes()
@@ -106,11 +112,11 @@ app.post("/sendMSG",(req,res)=>{
     } 
     //if the signIn page is posted
     else if(req.body.form_name==="signIn"){
-        const {email,password}=req.body;
+        const {username,password}=req.body;
         let error_0=false, error_1=false;
 
-        //check if the email is empty
-        if(email===""){
+        //check if the username is empty
+        if(username===""){
             error_0=true;
         }
         //check if the password is valid
@@ -121,24 +127,19 @@ app.post("/sendMSG",(req,res)=>{
         if(error_0||error_1){
             res.render("signIn",{
                 title : "signIn",
+                signedIn:false,
                 password:password,
-                email:email,
+                username:username,
                 is_error_0:error_0,
                 is_error_1:error_1
             })
         }
         //if all fields are valid
         else{
-            res.render("home",{
-                title : "home",
-                featuredMovies: movies.getFeaturedMovies(),
-                featuredTVs: movies.getFeaturedTVs(),
-                crimes: movies.getCrimes()
-            });
+            usernameGlobal=username;
+            res.redirect('/welcome');           
         }
-    } 
-
-
+    }
 
 });
 
@@ -177,7 +178,13 @@ app.get("/listing/:type",(req,res)=>{
     });
 })
 
-
+app.get("/welcome",(req,res)=>{
+    res.render("welcome",{
+        title : "welcome",
+        signedIn:true,
+        username:usernameGlobal
+    });
+});
 
 //404 error page
 app.use((req, res) => {
