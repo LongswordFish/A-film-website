@@ -9,11 +9,17 @@ const express=require("express");
 const exphbs=require("express-handlebars");
 const bodyParser = require('body-parser');
 
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+//import axios
+const axios = require('axios').default;
+
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
 const { response } = require("express");
 
 const app = express();
+//declare a global variable to show in the welcome page
 var usernameGlobal="";
 
 //which template engine is used in this project
@@ -41,6 +47,42 @@ app.get("/",(req,res)=>{
     });
 })
 
+//route for movieListing 
+app.get("/listing/:type",(req,res)=>{
+
+    const {type}= req.params;
+    let films = [];
+
+    if(type=='movies')
+    {
+        films = movies.getMovies()
+    }
+
+    else if (type=="TVs")
+    {
+        films = movies.getTVs() 
+    }
+    else if (type=="all")
+    {
+        films = movies.getAllMovies()
+    }
+
+    res.render("movieListing",{
+        title:"movieListing",
+        movies: films
+    });
+})
+
+//route for movieDetail
+app.get("/movies/:id",(req,res)=>{
+    res.render("movieDetail",{
+        title:"movieDetail",
+        movie: movies.getMovie(req.params.id)
+    });
+})
+
+
+//route for register page
 app.get("/register",(req,res)=>{
     res.render("register",{
         title : "register",
@@ -48,6 +90,7 @@ app.get("/register",(req,res)=>{
     });
 });
 
+//route for signIn page
 app.get("/signIn",(req,res)=>{
     res.render("signIn",{
         title : "signIn",
@@ -55,23 +98,23 @@ app.get("/signIn",(req,res)=>{
     });
 });
 
-//route for home page
+//route for sendMSG, method=='POST'
 app.post("/sendMSG",(req,res)=>{
 
-    // res.setHeader('Access-Control-Allow-Origin','*');
+    res.setHeader('Access-Control-Allow-Origin','*');
 
     //if the register page is posted
     if(req.body.form_name==="register"){
 
         //declare local variables 
-        const {name,password,email}=req.body;
-        let error_0=false, error_1=false, error_2=false, error_3=false;
+        const {name,password,email,phone}=req.body;
+        let error_0=false, error_1=false, error_2=false, error_3=false, error_4=false;
 
         //check if the name is empty
         if(name===""){
             error_0=true;
         }
-        //check if the password is valid
+        //check if the password is valid, at least one lower char, one upper char and a digit are needed
         var passwordTest=/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[^]{8,}$/; 
         if(password.length<8){
             error_1=true;
@@ -84,8 +127,13 @@ app.post("/sendMSG",(req,res)=>{
         if(!emailTest.test(email)){
             error_3=true;
         }
+        var phoneTest=/^(?=.*\d)[^]{10}$/; 
+        if(!phoneTest.test(phone)){
+            error_4=true;
+        }
+
         //if not all fields are valid
-        if(error_0||error_1||error_2||error_3){
+        if(error_0||error_1||error_2||error_3||error_4){
             res.render("register",{
                 title : "register",
                 signedIn:false,
@@ -96,17 +144,88 @@ app.post("/sendMSG",(req,res)=>{
                 is_error_1:error_1,
                 is_error_2:error_2,
                 is_error_3:error_3,
+                is_error_4:error_4,
             })
         }
         //if all fields are valid
         else{
-            res.render("home",{
-                title : "home",
-                signedIn:false,
-                featuredMovies: movies.getFeaturedMovies(),
-                featuredTVs: movies.getFeaturedTVs(),
-                crimes: movies.getCrimes()
-            });
+            
+            usernameGlobal=name;
+            // let config = {
+            //     headers: {
+            //         'Authorization': 'Bearer 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',
+            //         'Content-Type': 'application/json',
+            //         'Access-Control-Allow-Credentials':true,
+            //         'Access-Control-Allow-Origin':true
+            //     }
+            //   };
+              
+            // let data = {
+            //     "personalizations":
+            //     [
+            //         {"to":
+            //             [
+            //                 {"email":email,
+            //                 "name":name
+            //                 }
+            //             ],
+            //         "subject":"Welcome to FishStreaming"
+            //         }
+            //     ],
+            //     "content": 
+            //     [
+            //         {"type": "text/plain", 
+            //         "value": "Heya!"}
+            //     ],
+            //     "from":
+            //         {"email":"robinyu9840@gmail.com",
+            //         "name":"Robin Yu"
+            //         },
+            //     "reply_to":
+            //         {"email":"robinyu9840@gmail.com",
+            //         "name":"Robin Yu"
+            //         }
+            // };
+
+            // axios.post('https://api.sendgrid.com/v3/mail/send',data,config)
+            //   .then(function (response) {
+            //     console.log(response);
+            //   })
+            //   .catch(function (error) {
+            //     console.log(`error is`,error);
+            //   });
+            
+
+            // const xhr=new XMLHttpRequest();
+            // xhr.open('POST', 'https://api.sendgrid.com/v3/mail/send');
+            // xhr.setRequestHeader('Authorization','Bearer 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');
+            // xhr.setRequestHeader('Content-Type','application/json');
+            // xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
+            // xhr.setRequestHeader("Access-Control-Allow-Origin", true);          
+            // xhr.send(JSON.stringify(data));
+            // xhr.onreadystatechange=()=>{
+            //     if(xhr.readyState===4){
+            //         console.log('readystate');
+            //         if(xhr.status>=200 && xhr.status<300){
+            //             console.log('status 200');
+            //             console.log(xhr.response);
+            //         }
+            //     }
+            // }
+
+            //set up the msg sending by Twiolio API
+            const accountSid = 'AC803866b6ca557f8a93fe85cc66385f8e';
+            const authToken = '60a0b9f4d3fa4e90a6747aad857665c7';
+            const client = require('twilio')(accountSid, authToken);
+
+            client.messages
+                .create({
+                    body: `Hi, ${name},welcome to FishStreaming, please enjoy the films`,
+                    from: '+12253965782',
+                    to: phone
+                })
+                .then(message => console.log(message.sid));
+            res.redirect('/welcome'); 
         }
 
     } 
@@ -144,39 +263,6 @@ app.post("/sendMSG",(req,res)=>{
 });
 
 
-//route for movieDetail
-app.get("/movies/:id",(req,res)=>{
-    res.render("movieDetail",{
-        title:"movieDetail",
-        movie: movies.getMovie(req.params.id)
-    });
-})
-
-//route for movieListing 
-app.get("/listing/:type",(req,res)=>{
-
-    const type= req.params.type;
-    let films = [];
-
-    if(type=='movies')
-    {
-        films = movies.getMovies()
-    }
-
-    else if (type=="TVs")
-    {
-        films = movies.getTVs() 
-    }
-    else if (type=="all")
-    {
-        films = movies.getAllMovies()
-    }
-
-    res.render("movieListing",{
-        title:"movieListing",
-        movies: films
-    });
-})
 
 app.get("/welcome",(req,res)=>{
     res.render("welcome",{

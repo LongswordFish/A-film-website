@@ -27,6 +27,10 @@
                             Email Address<input id="email_res" name="email" autocomplete="email" tabindex="3" value={{email}} >
                             {{#if is_error_3}}
                             <p style="color:red; font-size:0.8em;">The format of the email is wrong</p>
+                            {{/if}}
+                            Phone<input id="phone_res" name="phone"  tabindex="4" value={{phone}} >
+                            {{#if is_error_4}}
+                            <p style="color:red; font-size:0.8em;">The 10 digits phone number is needed</p>
                             {{/if}} 
                             <input type="hidden" name="form_name" value ="register"/>  
                             <div class="modal-footer">
