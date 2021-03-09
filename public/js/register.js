@@ -12,9 +12,11 @@ window.onload=function(){
         var username=document.getElementById('username_res');
         var password=document.getElementById('password_res');
         var email=document.getElementById('email_res');
+        var phone=document.getElementById('phone_res');
         username.setAttribute('value',"");
         password.setAttribute('value',"");
         email.setAttribute('value',"");
+        phone.setAttribute('value',"");
 
     })
 

@@ -177,8 +177,8 @@ const fakeDB = {
 			movie_type:'History',
 			price_to_rent:5.99,
 			price_to_purchase:11.99,
-			small_picture:'/images/movies/Band_of_Brothers_small.webp',
-			larger_picture: '/images/movies/Band_of_Brothers_big.webp',
+			small_picture:'/images/movies/band_of_brothers_small.webp',
+			larger_picture: '/images/movies/band_of_brothers_big.webp',
             description:"The story of Easy Company of the U.S. Army 101st Airborne Division, and their mission in World War II Europe, from Operation Overlord, through V-J Day. ",
             featured:true
 
@@ -203,7 +203,7 @@ const fakeDB = {
 			movie_type:'Documentary',
 			price_to_rent:5.99,
 			price_to_purchase:11.99,
-			small_picture:'/images/movies/Blue_Planet_2_small.webp',
+			small_picture:'/images/movies/blue_planet_2_small.webp',
 			larger_picture: '/images/movies/Blue_Planet_2_big.webp',
             description:"David Attenborough returns to the world's oceans in this sequel to the acclaimed documentary filming rare and unusual creatures of the deep, as well as documenting the problems our oceans face.",
             featured:true

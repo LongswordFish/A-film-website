@@ -140,6 +140,7 @@ app.post("/sendMSG",(req,res)=>{
                 name:name,
                 password:password,
                 email:email,
+                phone:phone,
                 is_error_0:error_0,
                 is_error_1:error_1,
                 is_error_2:error_2,
@@ -290,3 +291,8 @@ app.listen(PORT,()=>{
 
 
 
+// Reference
+//     css and js are from bootstrap.com
+//     footer code is from mdbootstrap.com/
+//     All movie pictures are from douban.com/
+//     All icons are from material.io/resources/icons/?style=baseline
