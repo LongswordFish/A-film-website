@@ -4,19 +4,23 @@
 //     assignment: assignment 2 for web322
 //     date: 14 Feb. 2021
 //     version 2: 3 March 2021
+//     all the styles are in the public/css/style.css
+//     all the js files are in the public/js directory with the name of pageName.js
 
 const express=require("express");
 const exphbs=require("express-handlebars");
 const bodyParser = require('body-parser');
 
-var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+//import the enviroment variable
+require('dotenv').config({path:'config/key.env'});
+
+//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 
 //import axios
-const axios = require('axios').default;
+//const axios = require('axios').default;
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
-const { response } = require("express");
 
 const app = express();
 //declare a global variable to show in the welcome page
@@ -31,8 +35,9 @@ app.set('view engine', 'handlebars');
 app.use(express.static("public"));
 
 // create application/x-www-form-urlencoded parser
-app.use(bodyParser.urlencoded({extended: false}));
-// var urlencodedParser = bodyParser.urlencoded({ extended: false })
+
+// app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: false})); //Parse URL-encoded bodies
 
 
 //routes
@@ -101,7 +106,7 @@ app.get("/signIn",(req,res)=>{
 //route for sendMSG, method=='POST'
 app.post("/sendMSG",(req,res)=>{
 
-    res.setHeader('Access-Control-Allow-Origin','*');
+    // res.setHeader('Access-Control-Allow-Origin','*');
 
     //if the register page is posted
     if(req.body.form_name==="register"){
@@ -122,11 +127,13 @@ app.post("/sendMSG",(req,res)=>{
         else if(!passwordTest.test(password)){
             error_2=true;
         }
+
         //check if the email is valid
         var emailTest=/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
         if(!emailTest.test(email)){
             error_3=true;
         }
+
         var phoneTest=/^(?=.*\d)[^]{10}$/; 
         if(!phoneTest.test(phone)){
             error_4=true;
@@ -152,71 +159,30 @@ app.post("/sendMSG",(req,res)=>{
         else{
             
             usernameGlobal=name;
-            // let config = {
-            //     headers: {
-            //         'Authorization': 'Bearer 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',
-            //         'Content-Type': 'application/json',
-            //         'Access-Control-Allow-Credentials':true,
-            //         'Access-Control-Allow-Origin':true
-            //     }
-            //   };
-              
-            // let data = {
-            //     "personalizations":
-            //     [
-            //         {"to":
-            //             [
-            //                 {"email":email,
-            //                 "name":name
-            //                 }
-            //             ],
-            //         "subject":"Welcome to FishStreaming"
-            //         }
-            //     ],
-            //     "content": 
-            //     [
-            //         {"type": "text/plain", 
-            //         "value": "Heya!"}
-            //     ],
-            //     "from":
-            //         {"email":"robinyu9840@gmail.com",
-            //         "name":"Robin Yu"
-            //         },
-            //     "reply_to":
-            //         {"email":"robinyu9840@gmail.com",
-            //         "name":"Robin Yu"
-            //         }
-            // };
-
-            // axios.post('https://api.sendgrid.com/v3/mail/send',data,config)
-            //   .then(function (response) {
-            //     console.log(response);
-            //   })
-            //   .catch(function (error) {
-            //     console.log(`error is`,error);
-            //   });
             
-
-            // const xhr=new XMLHttpRequest();
-            // xhr.open('POST', 'https://api.sendgrid.com/v3/mail/send');
-            // xhr.setRequestHeader('Authorization','Bearer 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');
-            // xhr.setRequestHeader('Content-Type','application/json');
-            // xhr.setRequestHeader("Access-Control-Allow-Credentials", true);
-            // xhr.setRequestHeader("Access-Control-Allow-Origin", true);          
-            // xhr.send(JSON.stringify(data));
-            // xhr.onreadystatechange=()=>{
-            //     if(xhr.readyState===4){
-            //         console.log('readystate');
-            //         if(xhr.status>=200 && xhr.status<300){
-            //             console.log('status 200');
-            //             console.log(xhr.response);
-            //         }
-            //     }
-            // }
+            // using Twilio SendGrid's v3 Node.js Library
+            // https://github.com/sendgrid/sendgrid-nodejs
+            const sgMail = require('@sendgrid/mail');
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            const msg = {
+                to: email, // Change to your recipient
+                from: 'jyu205@myseneca.ca', // Change to your verified sender
+                subject: 'Wlecome to FishStreaming',
+                text: `Hi, ${name},welcome to FishStreaming, please enjoy the films`,
+                html: '<h2>Welcome<h2>',
+            };
+            sgMail
+                .send(msg)
+                .then(() => {
+                    console.log('Email sent')
+                })
+                .catch((error) => {
+                    console.error(error)
+                })
 
             //set up the msg sending by Twiolio API
-            const accountSid = 'AC803866b6ca557f8a93fe85cc66385f8e';
-            const authToken = '60a0b9f4d3fa4e90a6747aad857665c7';
+            const accountSid = process.env.accountSid;
+            const authToken = process.env.authToken;
             const client = require('twilio')(accountSid, authToken);
 
             client.messages
@@ -264,7 +230,6 @@ app.post("/sendMSG",(req,res)=>{
 });
 
 
-
 app.get("/welcome",(req,res)=>{
     res.render("welcome",{
         title : "welcome",
@@ -278,8 +243,6 @@ app.use((req, res) => {
     const path=__dirname+"/views/404.html";
     res.sendFile(path);
 });
-
-
 
 
 
