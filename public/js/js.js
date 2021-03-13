@@ -1,3 +1,8 @@
+//var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+
+//import axios
+//const axios = require('axios').default;
+
 
         // const registerForm=document.getElementById('register');
         // const error0=document.getElementById('error0');
