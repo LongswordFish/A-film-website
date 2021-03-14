@@ -12,7 +12,7 @@ const exphbs=require("express-handlebars");
 const bodyParser = require('body-parser');
 
 //import the enviroment variable
-require('dotenv').config({path:'config/key.env'});
+//require('dotenv').config({path:'config/key.env'});
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
