@@ -3,6 +3,7 @@ const router = express.Router();
 const userModel=require('../model/User');
 const path=require('path');
 
+const movies = require("../model/FakeDB");
 
 //declare a global variable to show in the welcome page
 var usernameGlobal="";

@@ -1,9 +1,11 @@
 const express = require('express')
 const router = express.Router();
 
+const movies = require("../model/FakeDB");
 /*GENERAL ROUTES*/
 //Route to direct user to home page
-app.get("/",(req,res)=>{
+router.get("/",(req,res)=>{
+    console.log("home page is asked");
     res.render("General/home",{
         title : "home",
         signedIn:false,

@@ -10,7 +10,7 @@
                     <button type="button" id="closeBtn" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="signIn" action="/sendMSG" method="POST">
+                    <form id="signIn" action="/user/signIn" method="POST">
                         Username <input id="username_signIN" name="username" tabindex="2" value={{username}}>
                         {{#if is_error_0}}
                             <p style="color:red; font-size:0.8em;">Name is required!</p>

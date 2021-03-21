@@ -14,7 +14,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 //import the enviroment variable
-//require('dotenv').config({path:'config/key.env'});
+require('dotenv').config({path:'config/key.env'});
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
@@ -58,42 +58,12 @@ app.use("/",generalRoutes);
 app.use("/user",userRoutes);
 app.use("/movie",movieRoutes);
 app.use("/",(req,res)=>{
-    res.render("General/404");
+    console.log("no link works");
+    const path=__dirname+"/views/General/404.html";
+    res.sendFile(path);
 });
 
-//route for movieListing 
-app.get("/listing/:type",(req,res)=>{
 
-    const {type}= req.params;
-    let films = [];
-
-    if(type=='movies')
-    {
-        films = movies.getMovies()
-    }
-
-    else if (type=="TVs")
-    {
-        films = movies.getTVs() 
-    }
-    else if (type=="all")
-    {
-        films = movies.getAllMovies()
-    }
-
-    res.render("movieListing",{
-        title:"movieListing",
-        movies: films
-    });
-})
-
-//route for movieDetail
-app.get("/movies/:id",(req,res)=>{
-    res.render("movieDetail",{
-        title:"movieDetail",
-        movie: movies.getMovie(req.params.id)
-    });
-})
 
 
 // //404 error page

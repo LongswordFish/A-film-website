@@ -4,19 +4,19 @@
         <ul class=""> 
             {{!-- me-auto mb-2 mb-lg-0 --}}
             <li>
-                <a href='/listing/movies'><button type="button" class="btn movieListingButton" id="movieBtn" >Movies</button></a>  
+                <a href='/movie/listing/movies'><button type="button" class="btn movieListingButton" id="movieBtn" >Movies</button></a>  
             </li>
             <li>
                 <p class="delimter"  > | </p>
             </li>
             <li>
-                <a href='/listing/TVs'><button type="button" class="btn movieListingButton" id="TVBtn"> TVs</button></a>  
+                <a href='/movie/listing/TVs'><button type="button" class="btn movieListingButton" id="TVBtn"> TVs</button></a>  
             </li>
             <li>
                 <p class="delimter" > | </p>
             </li>
             <li>
-                <a href='/listing/all'><button type="button" class="btn movieListingButton" id="allBtn"> All</button></a>  
+                <a href='/movie/listing/all'><button type="button" class="btn movieListingButton" id="allBtn"> All</button></a>  
             </li>
         </ul>
         {{!-- buttons --}}
@@ -29,7 +29,7 @@
                         <span>Rent:${{this.price_to_rent}}</span>
                         <span>Buy:${{this.price_to_purchase}}</span>
                     </p>
-                    <a href="/movies/{{this.id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
+                    <a href="/movie/movies/{{this.id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
                     <div class="card-body">
                         <h5 class="card-title">{{this.title}}</h5>
                     </div>
