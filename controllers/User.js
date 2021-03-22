@@ -5,9 +5,6 @@ const path=require('path');
 
 const movies = require("../model/FakeDB");
 
-//declare a global variable to show in the welcome page
-var usernameGlobal="";
-
 //Route to direct user to registration form
 router.get("/register",(req,res)=>{
     res.render("User/register",{
@@ -48,7 +45,7 @@ router.post("/register",async (req,res)=>{
 
         //if not all fields are valid
         if(error_0||error_1||error_2||error_3||error_4){
-            res.render("register",{
+            res.render("User/register",{
                 title : "register",
                 signedIn:false,
                 name:name,
@@ -64,9 +61,7 @@ router.post("/register",async (req,res)=>{
         }
         //if all fields are valid
         else{
-            
-            usernameGlobal=name;
-            
+                       
             // using Twilio SendGrid's v3 Node.js Library
             // https://github.com/sendgrid/sendgrid-nodejs
             const sgMail = require('@sendgrid/mail');
@@ -81,10 +76,10 @@ router.post("/register",async (req,res)=>{
             sgMail
                 .send(msg)
                 .then(() => {
-                    console.log('Email sent')
+                    console.log('Email sent');
                 })
                 .catch((error) => {
-                    console.error(error)
+                    console.error(error);
                 })
 
             //set up the msg sending by Twiolio API
@@ -98,8 +93,25 @@ router.post("/register",async (req,res)=>{
                     from: '+12253965782',
                     to: phone
                 })
-                .then(message => console.log(message.sid));
+                .then(message => console.log(message.sid))
+                .catch(error=>console.log(`error happened during sending msg because of ${error}`));
+            
+            const newUser={
+                name,
+                password,
+                email,
+                phone
+            };
+
+            const user=new userModel(newUser);
+
+            try{
+                const returnUser=await user.save();
                 res.redirect(`/user/profile/${returnUser._id}`); 
+            }
+            catch(error){
+                console.log(`error happened during saving new user because of ${error}`)
+            }                
         }
 })
 
@@ -143,15 +155,19 @@ router.post("/signIn",(req,res)=>
     }
 });
 
-router.get("/profile/:_id",(req,res)=>{
-    userModel.findById(req.params._id)
-    .then((user)=>{
-        const {profilePic}=user;
+router.get("/profile/:_id",async(req,res)=>{
+    try{
+        const returnUser=await userModel.findById(req.params._id);
         res.render("User/welcome",{
-            profilePic
+            title : "welcome",
+            signedIn:true,
+            username:returnUser.name
         });
-    })
-    .catch();
+
+    }catch(error){
+        console.log(`error happened during retrieving new user because of ${error}`);
+    }
+
     
 });
 
