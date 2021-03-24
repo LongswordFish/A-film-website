@@ -11,14 +11,17 @@
                 </div>
                 <div class="modal-body">
                     <form id="signIn" action="/user/signIn" method="POST">
-                        Username <input id="username_signIN" name="username" tabindex="2" value={{username}}>
-                        {{#if is_error_0}}
-                            <p style="color:red; font-size:0.8em;">Name is required!</p>
+                        {{#if error_2}}
+                            <p style="color:red; font-size:0.8em;">{{error_2}}</p>
+                        {{/if}} 
+                        email <input id="username_signIN" name="email" tabindex="1" value={{email}}>
+                        {{#if error_0}}
+                            <p style="color:red; font-size:0.8em;">{{error_0}}</p>
                         {{/if}}  
                         Password<input id="password_signIN" name="password" type="password"
-                            autocomplete="current-password"="3" maxlength="25" value={{password}}>
-                        {{#if is_error_1}}
-                            <p style="color:red; font-size:0.8em;">password is required!</p>
+                            autocomplete="current-password"="3" tabindex="2" value={{password}}>
+                        {{#if error_1}}
+                            <p style="color:red; font-size:0.8em;">{{error_1}}</p>
                         {{/if}}  
                         <input type="hidden" name="form_name" value ="signIn"/>  
                         <div class="modal-footer">

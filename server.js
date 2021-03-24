@@ -7,11 +7,16 @@
 //     all the styles are in the public/css/style.css
 //     all the js files are in the public/js directory with the name of pageName.js
 
+
+//import all libraries ->
 const express=require("express");
 const exphbs=require("express-handlebars");
 const bodyParser = require('body-parser');
 //import mongoose to connect to the mongoDB atlas database
 const mongoose = require('mongoose');
+
+//import session
+const session = require('express-session');
 
 //import the enviroment variable
 require('dotenv').config({path:'config/key.env'});
@@ -25,20 +30,20 @@ const movieRoutes = require("./controllers/Movie");
 const generalRoutes = require("./controllers/General");
 
 const app = express();
+// <-import all libraries 
 
 
 //which template engine is used in this project
 app.engine('handlebars',exphbs());
 app.set('view engine', 'handlebars');
 
+// app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.urlencoded({extended: false})); //Parse URL-encoded bodies
 
 //which static routes are
 app.use(express.static("public"));
 
 // create application/x-www-form-urlencoded parser
-
-// app.use(bodyParser.urlencoded({extended: false}));
-app.use(express.urlencoded({extended: false})); //Parse URL-encoded bodies
 
 //this is to allow specific forms and links that were submitted to send PUT and DELETE request respectively
 app.use((req,res,next)=>{
@@ -51,26 +56,29 @@ app.use((req,res,next)=>{
     next();
 })
 
+//set up session middleware
+app.use(session({
+  secret: `${process.env.SECRET_KEY}`,
+  resave: false,
+  saveUninitialized: true
+}))
 
+//set up locals using session
+app.use((req,res,next)=>{
+    res.locals.user=req.session.userInfo;
+    next();
+})
 
 //MAPs EXPRESS TO ALL OUR  ROUTER OBJECTS
 app.use("/",generalRoutes);
 app.use("/user",userRoutes);
 app.use("/movie",movieRoutes);
 app.use("/",(req,res)=>{
-    console.log("no link works");
     const path=__dirname+"/views/General/404.html";
     res.sendFile(path);
 });
 
 
-
-
-// //404 error page
-// app.use((req, res) => {
-//     const path=__dirname+"/views/404.html";
-//     res.sendFile(path);
-// });
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true})
 .then(()=>{console.log(`Connected to MongoDB database`)})

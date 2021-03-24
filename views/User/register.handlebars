@@ -14,23 +14,26 @@
                     <div class="modal-body">
                         <form id="register" action="/user/register" method="POST">
                             Username<input id="username_res" name="name" type="text" tabindex="1" maxlength="25" value={{name}}> 
-                            {{#if is_error_0}}
-                            <p style="color:red; font-size:0.8em;">Name is required!</p>
+                            {{#if error_0}}
+                            <p style="color:red; font-size:0.8em;">{{error_0}}</p>
                             {{/if}}       
-                            Password<input id="password_res" name="password" type="password"  tabindex="2" maxlength="25" value={{password}}>
-                            {{#if is_error_1}}
-                            <p style="color:red; font-size:0.8em;">Password needs to be at least 8 characters</p>  
+                            Password<input id="password_res" name="password" type="password"  tabindex="2" placeholder="Aa111111" value={{password}}>
+                            {{#if error_1}}
+                            <p style="color:red; font-size:0.8em;">{{error_1}}</p>  
                             {{/if}}
-                            {{#if is_error_2}}
-                            <p style="color:red; font-size:0.8em;">At least one upper character, one lower character and one digit are needed</p>  
+                            {{#if error_2}}
+                            <p style="color:red; font-size:0.8em;">{{error_2}}</p>  
                             {{/if}}        
-                            Email Address<input id="email_res" name="email" autocomplete="email" tabindex="3" value={{email}} >
-                            {{#if is_error_3}}
-                            <p style="color:red; font-size:0.8em;">The format of the email is wrong</p>
+                            Email Address<input id="email_res" name="email" autocomplete="email" tabindex="3" placeholder="1@1.ca" value={{email}} >
+                            {{#if error_3}}
+                            <p style="color:red; font-size:0.8em;">{{error_3}}</p>
                             {{/if}}
-                            Phone<input id="phone_res" name="phone"  tabindex="4" value={{phone}} >
-                            {{#if is_error_4}}
-                            <p style="color:red; font-size:0.8em;">The 10 digits phone number is needed</p>
+                            {{#if error_5}}
+                            <p style="color:red; font-size:0.8em;">{{error_5}}</p>
+                            {{/if}}
+                            Phone<input id="phone_res" name="phone"  tabindex="4" placeholder="1111111111" value={{phone}} >
+                            {{#if error_4}}
+                            <p style="color:red; font-size:0.8em;">{{error_4}}</p>
                             {{/if}} 
                             <input type="hidden" name="form_name" value ="register"/>  
                             <div class="modal-footer">
