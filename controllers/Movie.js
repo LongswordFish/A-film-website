@@ -29,7 +29,7 @@ router.get("/listing/:type",(req,res)=>{
         title:"movieListing",
         movies: films
     });
-})
+});
 
 //route for movieDetail
 router.get("/movies/:id",(req,res)=>{
@@ -37,6 +37,30 @@ router.get("/movies/:id",(req,res)=>{
         title:"movieDetail",
         movie: movies.getMovie(req.params.id)
     });
-})
+});
+
+//route for adding movie
+router.get("/add",(req,res)=>{
+    res.render("Movie/add",{
+        title:"add"
+    });
+});
+
+
+//route for adding movie
+router.post("/add",(req,res)=>{
+    res.render("Movie/add",{
+        title:"add"
+    });
+});
+
+
+//route for viewing add movies
+router.get("/viewAll",(req,res)=>{
+    res.render("Movie/viewAll",{
+        title:"viewAll"
+    });
+});
+
 
 module.exports=router;

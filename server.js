@@ -14,6 +14,7 @@ const exphbs=require("express-handlebars");
 const bodyParser = require('body-parser');
 //import mongoose to connect to the mongoDB atlas database
 const mongoose = require('mongoose');
+const fileUpload = require('express-fileupload');
 
 //import session
 const session = require('express-session');
@@ -30,8 +31,10 @@ const movieRoutes = require("./controllers/Movie");
 const generalRoutes = require("./controllers/General");
 
 const app = express();
-// <-import all libraries 
-
+// <-import all libraries
+ 
+// default options
+app.use(fileUpload());
 
 //which template engine is used in this project
 app.engine('handlebars',exphbs());

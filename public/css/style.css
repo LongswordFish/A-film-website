@@ -413,3 +413,22 @@ h5.card-title{
   font-size: 1.2em;
 }
 /* For 404 page */
+
+/* For movie adding page */
+#add{
+  width:350px;
+  border: solid;
+  margin: auto;
+  padding:auto 50px;
+}
+
+
+#addMovie{
+  padding: 16px 10px;
+  display:grid;
+  grid-row-gap:15px ;
+  align-items: center;
+  font-weight: bolder;
+}
+
+/* For movie adding page */
