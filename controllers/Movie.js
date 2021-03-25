@@ -134,8 +134,11 @@ router.get("/viewAll",(req,res)=>{
     .then((returnMovies)=>{
 
         const movies=returnMovies.map((movie)=>{
-            const {movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
+            
+            const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
+            console.log(_id);
             return {
+                _id,
                 movie_title,
                 type,
                 movie_type,
@@ -155,5 +158,16 @@ router.get("/viewAll",(req,res)=>{
     .catch(error=>console.log(`Error during reading from database: ${error}`));
 });
 
+//router to delete movie
+router.delete("/delete/:_id",(req,res)=>{
+    console.log("here");
+    movieModel.deleteOne({_id:req.params._id})
+    .then(()=>{
+        console.log("delete");
+        res.redirect("/movie/viewAll");
+    })
+    .catch(error=>console.log(`Error during deleting one document from database: ${error}`));
+
+});
 
 module.exports=router;
