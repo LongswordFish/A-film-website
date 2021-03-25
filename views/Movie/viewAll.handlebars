@@ -1,5 +1,8 @@
 <section id="viewAll" class="listing">
     <div class="container" style="margin-top:50px;">
+        <div id="addBtn">
+            <a href='/movie/add'><button type="button" class="btn btn-success id="movieBtn" >Add movie</button></a>  
+        </div>
         {{!-- movies and or TVs --}}
         <div class="row" id="listing">
             {{#each movies}}
@@ -16,7 +19,7 @@
                         </div>
 
                     </div>
-                    <div class="btn_area" style="margin: auto;">
+                    <div class="btn_area" >
                             <a href="/movie/edit/{{this._id}}"><button class="btn btn-primary"style="margin-right: 20px;" >Edit</button></a>
                             <a href="/movie/delete/{{this._id}}?method=DELETE"><button class="btn btn-danger">Delete</button></a>
                     </div>

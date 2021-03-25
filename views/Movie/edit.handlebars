@@ -1,21 +1,14 @@
-<section id="add">
-    <form id="addMovie" action="/movie/add" method="POST" enctype="multipart/form-data">
-        {{#if success}}
-            <p style="color:green; font-size:1.2em;font-">{{success}}</p>
-        {{/if}}
-
-       
+<section id="edit">
+    <form id="editMovie" method="POST" action="/movie/edit/{{_id}}?method=PUT" enctype="multipart/form-data">
         title<input id="title_add" name="movie_title" type="text" tabindex="1" maxlength="25" value={{movie_title}}>
         {{#if error_0}}
         <p style="color:red; font-size:0.8em;">{{error_0}}</p>
         {{/if}}
-
         <label>type</label>
         <select name="type">
-            <option value="movie">movie</option>
-            <option value="TV">TV</option>
+            <option value="movie" {{is_movie type}}>movie</option>
+            <option value="TV" {{is_TV type}}>TV</option>
         </select>
-
         movie type<input id="movie_type" name="movie_type" tabindex="2" value={{movie_type}}>
         {{#if error_1}}
         <p style="color:red; font-size:0.8em;">{{error_1}}</p>
@@ -34,8 +27,8 @@
 
         <label>featured</label>
         <select name="featured">
-            <option value="yes">yes</option>
-            <option value="no">no</option>
+            <option value="yes" {{is_featured type}}>yes</option>
+            <option value="no" {{not_featured type}}>no</option>
         </select>
 
         <label for="description">description:</label>
@@ -46,19 +39,32 @@
         {{/if}}
 
         <label>small image for the movie</label>
+        <div class="card_outer pic col-6 col-md-2 col-sm-3">
+            <div class="card">
+                <img src="/upload/{{this.small_picture}}" class="card-img" alt="..."></a>
+            </div>
+        </div>
         <input type="file" name="small_picture" id="small_picture">
 
         <label>large image for the movie</label>
+        <div class="card_outer pic col-6 col-md-2 col-sm-3">
+            <div class="card">
+                <img src="/upload/{{this.large_picture}}" class="card-img" alt="..."></a>
+            </div>
+        </div>
         <input type="file" name="large_picture" id="large_picture">
 
         {{#if error_5}}
         <p style="color:red; font-size:0.8em;">{{error_5}}</p>
         {{/if}}
 
+        {{#if success}}
+        <p style="color:green; font-size:1.2em;font-">{{success}}</p>
+        {{/if}}
 
         <div class="modal-footer" style="margin: auto;" >
             {{!-- <button type="reset" id="clearBtn" class="btn btn-secondary" style="margin-right: 30px;">Clear</button> --}}
-            <input type="submit" value="add movie" class="btn btn-primary" style="margin-right: 30px;"/>
+            <input type="submit" value="submit change" class="btn btn-primary" style="margin-right: 30px;"/>
             <a href="/user/admin"><input type="button" value="quit" class="btn btn-danger" style="width:60px"/></a>
         </div>
         <div style="margin: auto;">

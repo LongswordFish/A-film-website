@@ -37,7 +37,27 @@ const app = express();
 app.use(fileUpload());
 
 //which template engine is used in this project
-app.engine('handlebars',exphbs());
+app.engine('handlebars',exphbs(    {
+    helpers:{
+        is_movie:function(type){
+            if(type==="movie")
+                return "selected";
+        },
+        is_TV:function(type){
+            if(type==="TV")
+                return "selected";
+        },
+        is_featured:function(featured){
+            if(featured==="yes")
+                return "selected";
+        },
+        not_featured:function(featured){
+            if(featured==="no")
+                return "selected";
+        }
+    }
+
+}));
 app.set('view engine', 'handlebars');
 
 // app.use(bodyParser.urlencoded({extended: false}));

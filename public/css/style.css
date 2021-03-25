@@ -433,6 +433,11 @@ h5.card-title{
 /* For movie adding page */
 
 /* For movie viewAll page */
+#viewAll #addBtn{
+  margin: 20px auto;
+  text-align: center;
+}
+
 #viewAll .card_outer{
   height:420px;
   width: 220px;
@@ -451,6 +456,7 @@ h5.card-title{
   background-color: black;
   color:white;
   border-radius: 2%;
+  padding:12px;
 }
 #viewAll .card-img{
   margin-top: 0;
@@ -465,9 +471,28 @@ h5.card-title{
     text-align: center;
 }
 #viewAll .btn_area{
+  margin-top: 10px;
   display: flex;
   justify-content: space-between;
   padding:0 20px;
 }
-
 /* For movie viewAll page */
+
+
+/* For movie editting page */
+#edit{
+  width:350px;
+  border: solid;
+  margin: auto;
+  padding:auto 50px;
+}
+
+#editMovie{
+  padding: 16px 10px;
+  display:grid;
+  grid-row-gap:15px ;
+  align-items: center;
+  font-weight: bolder;
+}
+
+/* For movie editting page */
