@@ -24,11 +24,11 @@ const movieSchema= new Schema({
     },
     small_picture:{
         type:String,
-        required:true
+        default:"sys_default_small.ipg"
     },
-    larger_picture:{
+    large_picture:{
         type:String,
-        required:true
+        default:"sys_default_large.ipg"
     },
     description:{
         type:String,

@@ -422,7 +422,6 @@ h5.card-title{
   padding:auto 50px;
 }
 
-
 #addMovie{
   padding: 16px 10px;
   display:grid;
@@ -432,3 +431,43 @@ h5.card-title{
 }
 
 /* For movie adding page */
+
+/* For movie viewAll page */
+#viewAll .card_outer{
+  height:420px;
+  width: 220px;
+  margin:auto;
+  margin-bottom: 20px;
+  background-color:darkgray;
+}
+
+#viewAll .card{
+  height:350px;
+  width: 200px;
+  margin:auto;
+  margin-top:20px;
+  /* background-color:rgba(128, 128, 128, 0.233); */
+  /* background-color:lightskyblue; */
+  background-color: black;
+  color:white;
+  border-radius: 2%;
+}
+#viewAll .card-img{
+  margin-top: 0;
+  height:250px;
+}
+#viewAll .card-text{
+  margin-bottom: 5px;
+  padding: auto;
+
+}
+#viewAll h5.card-title{
+    text-align: center;
+}
+#viewAll .btn_area{
+  display: flex;
+  justify-content: space-between;
+  padding:0 20px;
+}
+
+/* For movie viewAll page */

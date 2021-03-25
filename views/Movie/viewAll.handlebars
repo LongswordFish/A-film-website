@@ -1,0 +1,29 @@
+<section id="viewAll" class="listing">
+    <div class="container" style="margin-top:50px;">
+        {{!-- movies and or TVs --}}
+        <div class="row" id="listing">
+            {{#each movies}}
+                <div class="card_outer pic col-6 col-md-2 col-sm-3">
+                    <div class="card">
+                        <p class="card-text" style="font-size: smaller; display:flex;justify-content: space-between;">
+                            <span>Rent:${{this.price_to_rent}}</span>
+                            <span>Buy:${{this.price_to_purchase}}</span>
+                        </p>
+                        <a href="/movie/movies/{{this.id}}"><img src="/upload/{{this.small_picture}}" class="card-img" alt="..."></a>
+                        <div class="card-body">
+                            <h5 class="card-title">{{this.movie_title}}</h5>
+                        
+                        </div>
+
+                    </div>
+                    <div class="btn_area" style="margin: auto;">
+                            <a href="/movie/edit/{{this._id}}"><button class="btn btn-primary"style="margin-right: 20px;" >Edit</button></a>
+                            <a href="/movie/delete/{{this._id}}"><button class="btn btn-danger">Delete</button></a>
+                    </div>
+                </div>
+            {{/each}}
+
+        </div>
+        {{!-- movies and or TVs --}}
+    </div>
+</section>

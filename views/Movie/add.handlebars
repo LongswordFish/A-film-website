@@ -1,5 +1,5 @@
 <section id="add">
-    <form id="addMovie" action="/movie/add" method="POST">
+    <form id="addMovie" action="/movie/add" method="POST" enctype="multipart/form-data">
         title<input id="title_add" name="movie_title" type="text" tabindex="1" maxlength="25" value={{movie_title}}>
         {{#if error_0}}
         <p style="color:red; font-size:0.8em;">{{error_0}}</p>
@@ -9,37 +9,59 @@
             <option value="movie">movie</option>
             <option value="TV">TV</option>
         </select>
-        movie type<input id="movie_type" name="movie_type"  tabindex="2" value={{movie_type}}>
+        movie type<input id="movie_type" name="movie_type" tabindex="2" value={{movie_type}}>
         {{#if error_1}}
         <p style="color:red; font-size:0.8em;">{{error_1}}</p>
         {{/if}}
-        price to rent<input id="price_to_rent" name="price_to_rent" tabindex="3"  value={{price_to_rentl}}>
+        price to rent<input id="price_to_rent" name="price_to_rent" tabindex="3" value={{price_to_rentl}}>
+        {{#if error_2}}
+        <p style="color:red; font-size:0.8em;">{{error_2}}</p>
+        {{/if}}
+
+        price to purchase<input id="price_to_purchase" name="price_to_purchase" tabindex="4"
+            value={{price_to_purchase}}>
         {{#if error_3}}
         <p style="color:red; font-size:0.8em;">{{error_3}}</p>
         {{/if}}
-        {{#if error_5}}
-        <p style="color:red; font-size:0.8em;">{{error_5}}</p>
-        {{/if}}
-        price to purchase<input id="price_to_purchase" name="price_to_purchase" tabindex="4" value={{price_to_purchase}}>
-        {{#if error_4}}
-        <p style="color:red; font-size:0.8em;">{{error_4}}</p>
-        {{/if}}
+
         <label>featured</label>
         <select name="featured">
             <option value="yes">yes</option>
             <option value="no">no</option>
         </select>
 
-        <label>small image for the movie</label>
-        <input type="file" name="small_picture" id="small_picture"> 
-        
-        <label>larger image for the movie</label>
-        <input type="file" name="larger_picture" id="larger_picture">
+        <label for="description">description:</label>
+        <textarea id="description" name="description" rows="4" cols="50"
+            placeholder="description...">{{description}}</textarea>
+        {{#if error_4}}
+        <p style="color:red; font-size:0.8em;">{{error_4}}</p>
+        {{/if}}
 
-        <div class="modal-footer">
-            <button type="reset" id="clearBtn" class="btn btn-secondary">Clear</button>
-            <input type="submit" value="add movie" class="btn btn-primary" />
+        <label>small image for the movie</label>
+        <input type="file" name="small_picture" id="small_picture">
+
+        <label>large image for the movie</label>
+        <input type="file" name="large_picture" id="large_picture">
+
+        {{#if error_5}}
+        <p style="color:red; font-size:0.8em;">{{error_5}}</p>
+        {{/if}}
+
+        {{#if success}}
+        <p style="color:green; font-size:1.2em;font-">{{success}}</p>
+        {{/if}}
+
+        <div class="modal-footer" style="margin: auto;" >
+            {{!-- <button type="reset" id="clearBtn" class="btn btn-secondary" style="margin-right: 30px;">Clear</button> --}}
+            <input type="submit" value="add movie" class="btn btn-primary" style="margin-right: 30px;"/>
+            <a href="/user/admin"><input type="button" value="quit" class="btn btn-danger" style="width:60px"/></a>
+        </div>
+        <div style="margin: auto;">
+            <a href="/movie/viewAll">
+            <input class="btn btn-success" value="View All movies" /> 
+            </a>
         </div>
     </form>
+   
 
 </section>
