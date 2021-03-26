@@ -104,7 +104,7 @@ app.use("/",(req,res)=>{
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true})
-.then(()=>{console.log(`Connected to MongoDB database`)})
+.then(()=>{alert(`Connected to MongoDB database`);console.log(`Connected to MongoDB database`)})
 .catch(error=>console.log(`Errors when trying to connect to mongoBD because of ${error}`))
 
 //define the port used for this application

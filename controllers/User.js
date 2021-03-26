@@ -139,6 +139,7 @@ router.get("/signIn",(req,res)=>{
 //Route to direct user to the login form
 router.post("/signIn",async (req,res)=>
 {
+    alert("coming to signIn");
     try{
         const {email,password}=req.body;
         let error_0="", error_1="",error_2="";
@@ -207,6 +208,7 @@ router.post("/signIn",async (req,res)=>
     }
     catch(error){
         console.log(error);
+        alert(error);
     }
 
 
