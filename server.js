@@ -20,7 +20,7 @@ const fileUpload = require('express-fileupload');
 const session = require('express-session');
 
 //import the enviroment variable
-//require('dotenv').config({path:'config/key.env'});
+require('dotenv').config({path:'config/key.env'});
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
@@ -104,7 +104,7 @@ app.use("/",(req,res)=>{
 
 
 mongoose.connect(process.env.MONGODB_CONNECTION_STRING, {useNewUrlParser: true, useUnifiedTopology: true})
-.then(()=>{alert(`Connected to MongoDB database`);console.log(`Connected to MongoDB database`)})
+.then(()=>{console.log(`Connected to MongoDB database`)})
 .catch(error=>console.log(`Errors when trying to connect to mongoBD because of ${error}`))
 
 //define the port used for this application
