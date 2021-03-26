@@ -120,14 +120,17 @@ router.post("/add",async (req,res)=>{
             var small_pic_name = "", large_pic_name="";
 
             small_pic_name=`movie_small_pic_${returnMovie._id}${path.parse(req.files.small_picture.name).ext}`;
-            req.files.small_picture.mv(`public/upload/${small_pic_name}`);
+
             large_pic_name=`movie_large_pic_${returnMovie._id}${path.parse(req.files.large_picture.name).ext}`;
-            req.files.large_picture.mv(`public/upload/${large_pic_name}`);
+
 
             // update the profilePic attribute data of the users who has the same _id
             // note: ** model.updateOne return how many document been modified
             // not a user object
             let nModified=await movieModel.updateOne({ _id: returnMovie._id }, { small_picture:small_pic_name,large_picture:large_pic_name });
+            req.files.small_picture.mv(`public/upload/${small_pic_name}`);
+            req.files.large_picture.mv(`public/upload/${large_pic_name}`);
+            
             if(nModified!=0){
                 success="Adding movie done!"
                 res.render("Movie/add",{
