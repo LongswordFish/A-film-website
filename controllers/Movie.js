@@ -65,14 +65,14 @@ router.post("/add",async (req,res)=>{
         if(!req.files.small_picture) error_5="small picture is required";
         else{
             let ext=path.parse(req.files.small_picture.name).ext;
-            if(ext!=".jpg." && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
+            if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
                 error_5="Only support jpg, gif, png and webp."
             }
         }
         if(!req.files.large_picture) error_5="large picture is required";
         else{
             let ext=path.parse(req.files.large_picture.name).ext;
-            if(ext!=".jpg." && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
+            if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
                 error_5="Only support jpg, gif, png and webp."
             }
         }
