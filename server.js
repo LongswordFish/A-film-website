@@ -20,7 +20,7 @@ const fileUpload = require('express-fileupload');
 const session = require('express-session');
 
 //import the enviroment variable
-require('dotenv').config({path:'config/key.env'});
+//require('dotenv').config({path:'config/key.env'});
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
