@@ -131,11 +131,11 @@ router.post("/add",async (req,res)=>{
             //req.files.large_picture.mv(`public/upload/${large_pic_name}`);
 
             //if(nModified!=0){
-                success="Adding movie done!"
-                res.render("Movie/add",{
-                    title:"add",
-                    success
-                })
+                // success="Adding movie done!"
+                // res.render("Movie/add",{
+                //     title:"add",
+                //     success
+                // })
             //}
 
             movie.save()

@@ -15,14 +15,13 @@ const bodyParser = require('body-parser');
 //import mongoose to connect to the mongoDB atlas database
 const mongoose = require('mongoose');
 const fileUpload = require('express-fileupload');
-const dotenv = require('dotenv');
 
 //import session
 const session = require('express-session');
 
 //import the enviroment variable
 //require('dotenv').config({path:'config/key.env'});
-//dotenv.config({ path: "./config/keys.env" });
+
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
