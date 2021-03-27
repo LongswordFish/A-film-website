@@ -113,7 +113,7 @@ router.post("/add",async (req,res)=>{
 
         try {
             //save the new modeled userobject 
-            let returnMovie = await movie.save();
+            //let returnMovie = await movie.save();
             console.log('add movie accomplished');
 
             //create a new variable "fileName" used for update
@@ -137,6 +137,15 @@ router.post("/add",async (req,res)=>{
                     success
                 })
             //}
+
+            movie.save()
+            .then(()=>{
+                success="Adding movie done!"
+                res.render("Movie/add",{
+                    title:"add",
+                    success
+                });
+            })
         }
         catch (error) {
             console.log(` ${error}`);
