@@ -22,7 +22,7 @@ const session = require('express-session');
 
 //import the enviroment variable
 //require('dotenv').config({path:'config/key.env'});
-dotenv.config({ path: "./config/keys.env" });
+//dotenv.config({ path: "./config/keys.env" });
 
 //import local module fakeDb 
 const movies = require("./model/FakeDB");
