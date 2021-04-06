@@ -20,7 +20,7 @@ const fileUpload = require('express-fileupload');
 const session = require('express-session');
 
 //import the enviroment variable
-//require('dotenv').config({path:'config/key.env'});
+require('dotenv').config({path:'config/key.env'});
 
 
 //import local module fakeDb 
@@ -96,6 +96,7 @@ app.use((req,res,next)=>{
 //MAPs EXPRESS TO ALL OUR  ROUTER OBJECTS
 app.use("/",generalRoutes);
 app.use("/user",userRoutes);
+//app.use("/user",(req,res,next)=>{console.log('user');next()},userRoutes);
 app.use("/movie",movieRoutes);
 app.use("/",(req,res)=>{
     const path=__dirname+"/views/General/404.html";

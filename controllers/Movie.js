@@ -60,23 +60,23 @@ router.post("/add",async (req,res)=>{
     if(!price_to_purchase) error_3="price to purchase is required";
     else if(isNaN(price_to_purchase)) error_3="price to purchase has to be a number";
     if(!description)error_4="description is required";
-    // if(!req.files) error_5="Files are required";
-    // else{
-    //     if(!req.files.small_picture) error_5="small picture is required";
-    //     else{
-    //         let ext=path.parse(req.files.small_picture.name).ext;
-    //         if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
-    //             error_5="Only support jpg, gif, png and webp."
-    //         }
-    //     }
-    //     if(!req.files.large_picture) error_5="large picture is required";
-    //     else{
-    //         let ext=path.parse(req.files.large_picture.name).ext;
-    //         if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
-    //             error_5="Only support jpg, gif, png and webp."
-    //         }
-    //     }
-    // }
+    if(!req.files) error_5="Files are required";
+    else{
+        if(!req.files.small_picture) error_5="small picture is required";
+        else{
+            let ext=path.parse(req.files.small_picture.name).ext;
+            if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
+                error_5="Only support jpg, gif, png and webp."
+            }
+        }
+        if(!req.files.large_picture) error_5="large picture is required";
+        else{
+            let ext=path.parse(req.files.large_picture.name).ext;
+            if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
+                error_5="Only support jpg, gif, png and webp."
+            }
+        }
+    }
     if(error_0||error_1||error_2||error_3||error_4||error_5){
         res.render("Movie/add",{
             title:"add",
@@ -113,39 +113,31 @@ router.post("/add",async (req,res)=>{
 
         try {
             //save the new modeled userobject 
-            //let returnMovie = await movie.save();
+            let returnMovie = await movie.save();
             console.log('add movie accomplished');
 
             //create a new variable "fileName" used for update
-            //var small_pic_name = "", large_pic_name="";
+            var small_pic_name = "", large_pic_name="";
 
-           // small_pic_name=`movie_small_pic_${returnMovie._id}${path.parse(req.files.small_picture.name).ext}`;
+           small_pic_name=`movie_small_pic_${returnMovie._id}${path.parse(req.files.small_picture.name).ext}`;
 
-            //large_pic_name=`movie_large_pic_${returnMovie._id}${path.parse(req.files.large_picture.name).ext}`;
+            large_pic_name=`movie_large_pic_${returnMovie._id}${path.parse(req.files.large_picture.name).ext}`;
 
-            // update the profilePic attribute data of the users who has the same _id
+            //update the profilePic attribute data of the users who has the same _id
             // note: ** model.updateOne return how many document been modified
             // not a user object
-            //let nModified=await movieModel.updateOne({ _id: returnMovie._id }, { small_picture:small_pic_name,large_picture:large_pic_name });
-           // req.files.small_picture.mv(`public/upload/${small_pic_name}`);
-            //req.files.large_picture.mv(`public/upload/${large_pic_name}`);
+            let nModified=await movieModel.updateOne({ _id: returnMovie._id }, { small_picture:small_pic_name,large_picture:large_pic_name });
+           req.files.small_picture.mv(`public/upload/${small_pic_name}`);
+            req.files.large_picture.mv(`public/upload/${large_pic_name}`);
 
-            //if(nModified!=0){
-                // success="Adding movie done!"
-                // res.render("Movie/add",{
-                //     title:"add",
-                //     success
-                // })
-            //}
-
-            movie.save()
-            .then(()=>{
+            if(nModified!=0){
                 success="Adding movie done!"
                 res.render("Movie/add",{
                     title:"add",
                     success
-                });
-            })
+                })
+            }
+
         }
         catch (error) {
             console.log(` ${error}`);
