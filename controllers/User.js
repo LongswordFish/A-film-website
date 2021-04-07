@@ -7,9 +7,9 @@ const bcrypt=require('bcryptjs');
 //import middlewares
 const isLoggedIn=require('../middleware/authentication');
 const isAdmin=require('../middleware/authorization');
-const registerValidation=require('../middleware/registerValidation');
-const signInValidation=require('../middleware/signInValidation');
-const register=require('../middleware/register');
+const registerValidation=require('../middleware/user/registerValidation');
+const signInValidation=require('../middleware/user/signInValidation');
+const register=require('../middleware/user/register');
 
 //const path=require('path');
 

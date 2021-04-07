@@ -1,4 +1,4 @@
-const userModel=require('../model/User');
+const userModel=require('../../model/User');
 
 const registerValidation=async (req,res,next)=>{
 

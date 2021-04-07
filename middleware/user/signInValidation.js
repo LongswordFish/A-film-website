@@ -1,4 +1,4 @@
-const userModel=require('../model/User');
+const userModel=require('../../model/User');
 const bcrypt=require('bcryptjs');
 
 const signInValidation=async (req,res,next)=>{

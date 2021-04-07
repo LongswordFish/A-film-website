@@ -29,9 +29,9 @@
                         <span>Rent:${{this.price_to_rent}}</span>
                         <span>Buy:${{this.price_to_purchase}}</span>
                     </p>
-                    <a href="/movie/movies/{{this.id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
+                    <a href="/movie/movies/{{this._id}}"><img src="{{this.small_picture}}" class="card-img" alt="..."></a>
                     <div class="card-body">
-                        <h5 class="card-title">{{this.title}}</h5>
+                        <h5 class="card-title">{{this.movie_title}}</h5>
                     </div>
                 </div>
             {{/each}}
