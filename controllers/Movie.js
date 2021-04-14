@@ -7,6 +7,7 @@ const path=require('path');
 const movies = require("../model/FakeDB");
 const isLoggedIn = require("../middleware/authentication");
 const isAdmin = require('../middleware/authorization');
+const movieValidation=require('../middleware/movie/movieValidation');
 
 //route for movieListing 
 router.get("/listing/:type",async (req,res)=>{
@@ -36,6 +37,26 @@ router.get("/listing/:type",async (req,res)=>{
                 films=await movieModel.find({});
                 //films = movies.getAllMovies()
             }
+
+
+            // (async ()=>{
+            //     try{
+
+            //         let returnSchools =[];
+            //         returnSchools=await shoolModel.find({noOfStudents:25});
+            //         schoolSession=returnSchools.map((school)=>{
+            //             const {_id,name,noOfStudents,location}=school;
+            //             return {_id,name,noOfStudents,location};
+            //         });
+
+            //     }
+            //     catch(error){
+            //         console.log(`error is ${error}`);
+
+            //     }
+            // })();
+
+
 
             const localFilms=films.map((film)=>{
                 const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=film;
@@ -126,98 +147,53 @@ router.get("/add",isLoggedIn,isAdmin,(req,res)=>{
 
 
 //route for adding movie
-router.post("/add",isLoggedIn,isAdmin,async (req,res)=>{
+router.post("/add",isLoggedIn,isAdmin,movieValidation,async (req,res)=>{
+
     var {movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured}=req.body;
-    let error_0="", error_1="",error_2="",error_3="",error_4="",error_5="",success="";
-    if(!movie_title) error_0="movie title is required";
-    if(!movie_type) error_1="movie type is required";
-    if(!price_to_rent) error_2="price to rent is required";
-    else if(isNaN(price_to_rent)) error_2="price to rent has to be a number";
-    if(!price_to_purchase) error_3="price to purchase is required";
-    else if(isNaN(price_to_purchase)) error_3="price to purchase has to be a number";
-    if(!description)error_4="description is required";
-    if(!req.files) error_5="Files are required";
-    else{
-        if(!req.files.small_picture) error_5="small picture is required";
-        else{
-            let ext=path.parse(req.files.small_picture.name).ext;
-            if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
-                error_5="Only support jpg, gif, png and webp."
-            }
-        }
-        if(!req.files.large_picture) error_5="large picture is required";
-        else{
-            let ext=path.parse(req.files.large_picture.name).ext;
-            if(ext!=".jpg" && ext!=".gif"&&ext!=".png" &&ext!=".webp"){
-                error_5="Only support jpg, gif, png and webp."
-            }
-        }
+
+    //build a new movieObject
+    const newMovie = {
+        movie_title,
+        type,
+        movie_type,
+        price_to_rent,
+        price_to_purchase,
+        description,
+        featured
+    };
+
+    //build a new modeled movieobject using the movieObejct
+    const movie = new movieModel(newMovie);
+
+    try {
+        //save the new modeled userobject 
+        let returnMovie = await movie.save();
+        console.log('add movie accomplished');
+
+        //create a new variable "fileName" used for update
+        var small_pic_name = "", large_pic_name="";
+
+       small_pic_name=`movie_small_pic_${returnMovie._id}${path.parse(req.files.small_picture.name).ext}`;
+
+        large_pic_name=`movie_large_pic_${returnMovie._id}${path.parse(req.files.large_picture.name).ext}`;
+
+        //update the profilePic attribute data of the users who has the same _id
+        // note: ** model.updateOne return how many document been modified
+        // not a user object
+        let nModified=await movieModel.updateOne({ _id: returnMovie._id }, { small_picture:small_pic_name,large_picture:large_pic_name });
+        req.files.small_picture.mv(`public/upload/${small_pic_name}`);
+        req.files.large_picture.mv(`public/upload/${large_pic_name}`);
+
+        if(nModified!=0){
+            success="Adding movie done!"
+            res.render("Movie/add",{
+                title:"add",
+                success
+            })
+        }        
     }
-    if(error_0||error_1||error_2||error_3||error_4||error_5){
-        res.render("Movie/add",{
-            title:"add",
-            error_0,
-            error_1,
-            error_2,
-            error_3,
-            error_4,
-            error_5,
-            movie_title,
-            type,
-            movie_type,
-            price_to_rent,
-            price_to_purchase,
-            description,
-            featured,
-            success
-        })
-    }
-    else{
-        //build a new movieObject
-        const newMovie = {
-            movie_title,
-            type,
-            movie_type,
-            price_to_rent,
-            price_to_purchase,
-            description,
-            featured
-        };
-
-        //build a new modeled movieobject using the movieObejct
-        const movie = new movieModel(newMovie);
-
-        try {
-            //save the new modeled userobject 
-            let returnMovie = await movie.save();
-            console.log('add movie accomplished');
-
-            //create a new variable "fileName" used for update
-            var small_pic_name = "", large_pic_name="";
-
-           small_pic_name=`movie_small_pic_${returnMovie._id}${path.parse(req.files.small_picture.name).ext}`;
-
-            large_pic_name=`movie_large_pic_${returnMovie._id}${path.parse(req.files.large_picture.name).ext}`;
-
-            //update the profilePic attribute data of the users who has the same _id
-            // note: ** model.updateOne return how many document been modified
-            // not a user object
-            let nModified=await movieModel.updateOne({ _id: returnMovie._id }, { small_picture:small_pic_name,large_picture:large_pic_name });
-           req.files.small_picture.mv(`public/upload/${small_pic_name}`);
-            req.files.large_picture.mv(`public/upload/${large_pic_name}`);
-
-            if(nModified!=0){
-                success="Adding movie done!"
-                res.render("Movie/add",{
-                    title:"add",
-                    success
-                })
-            }
-
-        }
-        catch (error) {
-            console.log(` ${error}`);
-        }
+    catch (error) {
+        console.log(` ${error}`);
     }
 });
 
@@ -271,7 +247,7 @@ router.get("/edit/:_id",isLoggedIn,isAdmin,(req,res)=>{
     movieModel.findById(req.params._id)
     .then((movie)=>{
         const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
-
+        console.log(movie_title);
         console.log(price_to_rent);
         res.render("Movie/edit",{
             _id,
@@ -292,8 +268,8 @@ router.get("/edit/:_id",isLoggedIn,isAdmin,(req,res)=>{
 
 
 //Route to update user data after they submit the form
-router.put("/edit/:_id",isLoggedIn,isAdmin,(req,res)=>{
-    console.log("here");
+router.put("/edit/:_id",isLoggedIn,isAdmin,movieValidation,(req,res)=>{
+
     const {movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured}=req.body;
     
     let small_pic_name=`movie_small_pic_${req.params._id}${path.parse(req.files.small_picture.name).ext}`;
@@ -328,6 +304,38 @@ router.delete("/delete/:_id",isLoggedIn,isAdmin,(req,res)=>{
         res.redirect("/movie/viewAll");
     })
     .catch(error=>console.log(`Error during deleting one document from database: ${error}`));
+
+});
+
+router.post("/search",async (req,res)=>{
+
+    try{
+        const {search}=req.body;
+        let filteredMovies= await movieModel.find().where("movie_title").regex(`${search}`);
+        let movies=[];
+        let msg="";
+        if(filteredMovies.length>0){
+            movies=filteredMovies.map((movie)=>{
+                const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
+                return {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}
+            });
+        }
+        else{
+            msg= "Sorry, can't find the movies";
+        }
+        res.render("Movie/searchResult",{
+            title:"searchResult",
+            msg,
+            movies,
+        });
+
+
+    }
+    catch (error) {
+        console.log(` ${error}`);
+    }
+
+
 
 });
 

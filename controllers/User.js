@@ -57,7 +57,7 @@ router.get("/signIn",(req,res)=>{
 });
 
 //Route to direct user to the login form
-router.post("/signIn",signInValidation,async (req,res)=>
+router.post("/signIn",signInValidation,(req,res)=>
 {
     res.redirect(`/user/admin`);
 

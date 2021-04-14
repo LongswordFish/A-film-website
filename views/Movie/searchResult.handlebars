@@ -1,0 +1,20 @@
+<section id="searchResult">
+    <section style="text-align: center;">
+        <p style="font-size:25px;color:red">{{msg}}</p>
+    </section>
+    <div class="row" id="listing">
+            {{#each movies}}
+                <div class="card pic col-6 col-md-2 col-sm-3">
+                    <p class="card-text" style="font-size: smaller; display:flex;justify-content: space-between;">
+                        <span>Rent:${{this.price_to_rent}}</span>
+                        <span>Buy:${{this.price_to_purchase}}</span>
+                    </p>
+                    <a href="/movie/movies/{{this._id}}"><img src="/upload/{{this.small_picture}}" class="card-img" alt="..."></a>
+                    <div class="card-body">
+                        <h5 class="card-title">{{this.movie_title}}</h5>
+                    </div>
+                </div>
+            {{/each}}
+
+        </div>
+</section>
