@@ -1,6 +1,6 @@
 <section id="edit">
     <form id="editMovie" method="POST" action="/movie/edit/{{_id}}?method=PUT" enctype="multipart/form-data">
-        title<input id="title_add" name="movie_title" type="text" tabindex="1"  value={{movie_title}}>
+        title<input id="title_add" name="movie_title" tabindex="1"  value={{movie_title}}  >
         {{#if error_0}}
         <p style="color:red; font-size:0.8em;">{{error_0}}</p>
         {{/if}}

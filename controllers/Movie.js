@@ -91,7 +91,7 @@ router.get("/movies/:_id",async (req,res)=>{
             if(isValid){
                 const returnMovie=await movieModel.findOne({_id:req.params._id});
                 const {movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=returnMovie;
-                movie={movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}
+                movie={_id:req.params._id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture};
                 res.render("Movie/movieDetail",{
                     title:"movieDetail",
                     movie,
@@ -110,6 +110,32 @@ router.get("/movies/:_id",async (req,res)=>{
         console.log(`error happens because of ${error}`);
     }
 
+});
+
+
+router.post("/movies/:_id",async(req,res)=>{
+
+    try{
+        if(req.session.shoppingCart===undefined){
+            req.session.shoppingCart=[];
+        }
+    
+        const returnMovie= await movieModel.findById(req.params._id)
+        const item={
+            rentOrBuy:req.body.rentOrBuy,
+            movie:returnMovie
+        }
+        req.session.shoppingCart.push(item);
+       // console.log(req.session.shoppingCart);
+
+        req.session.shoppingCart.map((item)=>{
+            console.log(item.movie.movie_title);
+        })
+
+        res.redirect("/user/shoppingCart");
+    }
+    catch(err){console.log(`Error is ${err}`);}
+    
 });
 
 //route for adding movie
@@ -229,10 +255,8 @@ router.get("/viewAll",isLoggedIn,isAdmin,(req,res)=>{
 
 //router to delete movie
 router.delete("/delete/:_id",isLoggedIn,isAdmin,(req,res)=>{
-    console.log("here");
     movieModel.deleteOne({_id:req.params._id})
     .then(()=>{
-        console.log("delete");
         res.redirect("/movie/viewAll");
     })
     .catch(error=>console.log(`Error during deleting one document from database: ${error}`));
@@ -247,8 +271,6 @@ router.get("/edit/:_id",isLoggedIn,isAdmin,(req,res)=>{
     movieModel.findById(req.params._id)
     .then((movie)=>{
         const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
-        console.log(movie_title);
-        console.log(price_to_rent);
         res.render("Movie/edit",{
             _id,
             movie_title,
@@ -311,18 +333,29 @@ router.post("/search",async (req,res)=>{
 
     try{
         const {search}=req.body;
-        let filteredMovies= await movieModel.find().where("movie_title").regex(`${search}`);
+        let nameFilteringMovies= await movieModel.find().where("movie_title").regex(`${search}`);
+        let typeFilteringMovies= await movieModel.find().where("movie_type").regex(`${search}`);
         let movies=[];
         let msg="";
-        if(filteredMovies.length>0){
-            movies=filteredMovies.map((movie)=>{
-                const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
-                return {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}
-            });
-        }
-        else{
+
+        if(nameFilteringMovies.length==0 &&typeFilteringMovies.length==0){
             msg= "Sorry, can't find the movies";
         }
+        else{
+            if (nameFilteringMovies.length>0){
+                movies=nameFilteringMovies.map((movie)=>{
+                    const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
+                    return {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}
+                });
+            }
+            if (typeFilteringMovies.length>0){
+                typeFilteringMovies.forEach((movie)=>{
+                    const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
+                    movies.push({_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}); 
+                }); 
+            }
+        } 
+
         res.render("Movie/searchResult",{
             title:"searchResult",
             msg,

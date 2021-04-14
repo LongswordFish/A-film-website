@@ -90,6 +90,23 @@ app.use(session({
 //set up locals using session
 app.use((req,res,next)=>{
     res.locals.user=req.session.userInfo;
+    if(req.session.shoppingCart){
+        res.locals.shoppingCart=req.session.shoppingCart;
+        res.locals.sum = res.locals.shoppingCart.reduce((prev, cur)=> {
+            if(cur.rentOrBuy=="rent")
+                return cur.movie.price_to_rent + prev;
+            if(cur.rentOrBuy=="buy")
+                return cur.movie.price_to_purchase + prev; 
+        }, 0);
+    }
+    else{
+        res.locals.shoppingCart=[];
+        res.locals.sum=0;
+    }
+
+
+
+
     next();
 })
 

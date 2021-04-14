@@ -12,12 +12,67 @@
             <p class="titileInDetail">{{movie.movie_title}}</p>
             <p class="movieType">Movie Type: {{movie.movie_type}}</p>
             <p class="desInDetail">{{movie.description}}</p>
-            <p class="price">
+            {{!-- <p class="price">
                 <span>Rent:${{movie.price_to_rent}}</span>
                 <span>Buy:${{movie.price_to_purchase}}</span>
-            </p>
+            </p> --}}
+            <div style="margin: auto;" >
+                <button class="btn btn-primary" style="margin-bottom: 20px;margin-right: 100px;" data-bs-toggle="modal" data-bs-target="#rentModel">Rent for ${{movie.price_to_rent}} </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#buyModel">Buy for ${{movie.price_to_purchase}}</button>
+            </div>
         </div>
 
         
     </section>
+
+    <!-- Modal for rent -->
+    <div class="modal fade" id="rentModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to rent this film?
+                </div>
+                <div class="modal-footer">
+                    <form id="rentMovie" action="/movie/movies/{{movie._id}}" method="POST">
+                        <input type="hidden" name="rentOrBuy" value="rent" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-primary" value="Rent it" />
+                    </form>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for rent -->
+
+        <!-- Modal for buy -->
+    <div class="modal fade" id="buyModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+        aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="staticBackdropLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    Do you want to buy this film?
+                </div>
+                <div class="modal-footer">
+                    <form id="rentMovie" action="/movie/movies/{{movie._id}}" method="POST">
+                        <input type="hidden" name="rentOrBuy" value="buy" />
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <input type="submit" class="btn btn-primary" value="Buy it" />
+                    </form>
+    
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for buy-->
+
 </section>

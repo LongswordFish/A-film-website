@@ -496,3 +496,94 @@ h5.card-title{
 }
 
 /* For movie editting page */
+
+/* For shoppingCart page */
+
+.box_title{
+  margin: auto;
+  width:60%;
+  border-style: solid;
+  border:black;
+  border-bottom-style: double;
+  border-bottom-width: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.box_title div{
+  width: 20%;
+  padding-top: 50px;
+}
+
+.box_title div p{
+  font-size: large;
+  font-weight: bold;
+}
+
+
+#box_listing{
+  margin: auto;
+  padding: 10px auto;
+  width:60%;
+  height:140px;
+  border-bottom-style: solid;
+  border-bottom:black;
+  border-bottom-width: 2px;
+  display: flex;
+  justify-content: space-between;
+
+  border-style: solid;
+  border:black;
+  border-bottom-style: dotted;
+  border-bottom-width: 2px;
+}
+
+#box_listing div{
+  width: 20%;
+  padding-top: 50px;
+}
+
+#box_listing div p{
+  font-size: large;
+  font-weight: bold;
+}
+
+#box_listing img{
+  height: 120px;
+  width: 160px;
+  padding-top: 10px;
+}
+
+#sum_area{
+  margin: auto;
+  width:60%;
+  border-style: solid;
+  border:black;
+  border-top-style: double;
+  border-top-width: 2px;
+  border-bottom-style: double;
+  border-bottom-width: 2px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#sum_area div{
+  width: 20%;
+  padding-top: 10px;
+  margin-left: 20px;
+}
+
+#sum_area div p{
+  font-size: large;
+  font-weight: bold;
+}
+
+.buttons_area{
+  margin: 20px auto;
+  width:60%;
+  display: flex;
+  justify-content:space-evenly;
+
+}
+
+/* For shoppingCart page */

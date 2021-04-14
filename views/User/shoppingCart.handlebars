@@ -1,0 +1,67 @@
+<section id="shoppingCart">
+    <section style="text-align: center;">
+        <p style="font-size:25px;color:rgb(0, 255, 128)">Shopping List</p>
+    </section>
+    <div class="row" id="listing">
+        <div class="box_title">
+            <div style="width: 160px;">
+
+            </div>
+
+            <div>
+                <p>Movie Title</p>
+            </div>
+            <div>
+                <p>Purchase Type</p>
+            </div>
+
+            <div>
+                <p>Price</p>
+            </div>
+        </div>
+        {{#each shoppingCart}}
+        {{!-- <div class="card pic col-6 col-md-2 col-sm-3">
+            <p class="card-text" style="font-size: smaller; display:flex;justify-content: space-between;">
+                <span>Rent:${{this.price_to_rent}}</span>
+                <span>Buy:${{this.price_to_purchase}}</span>
+            </p>
+            <a href="/movie/movies/{{this._id}}"><img src="/upload/{{this.small_picture}}" class="card-img"
+                    alt="..."></a>
+            <div class="card-body">
+                <h5 class="card-title">{{this.movie_title}}</h5>
+            </div>
+        </div> --}}
+        <div class="row" id="box_listing">
+            <img src="/upload/{{this.movie.large_picture}}">
+            <div>
+                <p>{{this.movie.movie_title}}</p>
+            </div>
+            <div>
+                <p>{{this.rentOrBuy}}</p>
+            </div>
+
+            <div>
+                <p>${{this.movie.price_to_rent}}</p>
+            </div>
+
+        </div>
+        {{/each}}
+
+        <div id="sum_area" style="">
+            <div>
+                <p>Sum:</p>
+            </div>
+
+            <div>
+                <p>${{sum}}</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="buttons_area">
+        {{!-- <button type="reset" id="clearBtn" class="btn btn-secondary" style="margin-right: 30px;">Clear</button> --}}
+        <a href="/user/clearOrder"><input type="button" value="clear" class="btn btn-danger" style="width:100px" /></a>
+        <a href="/user/confirmOrder"><input type="button" value="confirm" class="btn btn-success" style="width:100px" /></a>
+    </div>
+
+</section>

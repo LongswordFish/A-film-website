@@ -15,6 +15,7 @@ const register=require('../middleware/user/register');
 
 //import the fake database
 const movies = require("../model/FakeDB");
+const movieModel = require('../model/Movie');
 
 //Route to direct user to registration form
 router.get("/register",(req,res)=>{
@@ -80,9 +81,35 @@ router.get("/admin",isLoggedIn,isAdmin,(req,res)=>{
     });
 })
 
+
+router.get("/shoppingCart",async(req,res)=>{
+
+        res.render("User/shoppingCart", {
+            title: "shoppingCart"
+        });
+    
+});
+
+router.get("/clearOrder",(req,res)=>{
+
+    req.session.shoppingCart=[];
+
+    res.redirect("/user/shoppingCart");
+
+});
+
+router.get("/confirmOrder",(req,res)=>{
+
+    
+    res.redirect("/user/profile/")
+
+});
+
 router.get("/logout/",(req,res)=>{
     req.session.destroy();
     res.redirect('/');
 });
+
+
 
 module.exports=router;
