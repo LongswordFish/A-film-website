@@ -3,6 +3,8 @@ const express =require('express');
 const router = express.Router();
 const userModel=require('../model/User');
 const bcrypt=require('bcryptjs');
+const orderModel=require('../model/Order');
+const moment=require('moment');
 
 //import middlewares
 const isLoggedIn=require('../middleware/authentication');
@@ -82,7 +84,7 @@ router.get("/admin",isLoggedIn,isAdmin,(req,res)=>{
 })
 
 
-router.get("/shoppingCart",async(req,res)=>{
+router.get("/shoppingCart",isLoggedIn,async(req,res)=>{
 
         res.render("User/shoppingCart", {
             title: "shoppingCart"
@@ -90,7 +92,7 @@ router.get("/shoppingCart",async(req,res)=>{
     
 });
 
-router.get("/clearOrder",(req,res)=>{
+router.get("/clearOrder",isLoggedIn,(req,res)=>{
 
     req.session.shoppingCart=[];
 
@@ -98,14 +100,90 @@ router.get("/clearOrder",(req,res)=>{
 
 });
 
-router.get("/confirmOrder",(req,res)=>{
+router.get("/confirmOrder",isLoggedIn,async (req,res)=>{
+
+    const total = res.locals.shoppingCart.reduce((prev, cur)=> {
+        if(cur.rentOrBuy=="rent")
+            return cur.movie.price_to_rent + prev;
+        if(cur.rentOrBuy=="buy")
+            return cur.movie.price_to_purchase + prev; 
+    }, 0);
 
     
+    const items=req.session.shoppingCart;
+    const order={items,total,createdBy:req.session.userInfo.email};
+    //console.log(order);
+
+    const newOrder=new orderModel(order);
+    const returnOrder=await newOrder.save();
+
+
+
+    const sgMail = require('@sendgrid/mail');
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+    let msg = {
+        to: req.session.userInfo.email, 
+        from: 'jyu205@myseneca.ca', // Change to your verified sender
+        subject: 'New Order Information',
+        text: `${req.session.userInfo.name}, you just ordered a new order`,
+        html: `<h2>Hi, ${req.session.userInfo.name}, you just ordered a new order. Enjoy!</h2>`,
+    };
+
+    req.session.shoppingCart.map((item)=>{
+        
+        if(item.rentOrBuy=="rent")
+            msg.html+=`<p> ${item.rentOrBuy} the ${item.movie.movie_title} for ${item.movie.price_to_rent}</p>`;
+        if(item.rentOrBuy=="buy")
+            msg.html+=`<p> ${item.rentOrBuy} the ${item.movie.movie_title} for ${item.movie.price_to_purchase}</p>`;
+    });
+    msg.html+=`<p>The total of the order is ${total}</p>`;
+
+    sgMail
+        .send(msg)
+        .then(() => {
+            console.log('Email sent');
+        })
+        .catch((error) => {
+            console.error(error);
+        })
+
     res.redirect("/user/profile/")
 
 });
 
-router.get("/logout/",(req,res)=>{
+router.get("/orderListing",isLoggedIn,async(req,res)=>{
+    try{
+        const returnOrders=await orderModel.find({"createdBy":req.session.userInfo.email});
+
+        //console.log(returnOrders);
+
+        if(returnOrders==null){
+            msg="You don't have any orders."
+            res.render("User/orderListing",{
+                title:"orderListing",
+                msg,
+            });
+        }else{
+
+            const orders=returnOrders.map((order)=>{
+                const {_id,dateCreated,total}=order;
+                return {_id,dateCreated:moment(dateCreated).format('MMMM Do YYYY, h:mm:ss a'),total};
+            });
+
+            
+            res.render("User/orderListing",{
+                title:"orderListing",
+                orders,
+            });
+        }
+
+    }
+    catch(err){console.log(`err is ${err}`);}
+
+});
+
+
+router.get("/logout/",isLoggedIn,(req,res)=>{
     req.session.destroy();
     res.redirect('/');
 });

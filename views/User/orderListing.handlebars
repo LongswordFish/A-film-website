@@ -1,0 +1,41 @@
+<section id="orderListing">
+
+    <p class="title" style="text-align:center; font-size:1.5em; font-weight:bolder">OrderListing</p>
+    {{#if orders}}
+        <div class="row" id="listing">
+            <div class="box_title">
+       
+                <div>
+                    <p>Order Number</p>
+                </div>
+                <div>
+                    <p>Total</p>
+                </div>
+        
+                <div>
+                    <p>Date</p>
+                </div>
+            </div>
+            {{#each orders}}
+            <div class="row" id="box_listing">
+                <div>
+                    <a href="/user/order/{{this._id}}"><p>{{this._id}}</p></a>
+                    
+                </div>
+                <div>
+                    <p>${{this.total}}</p>
+                </div>
+        
+                <div style="">
+                    <p >{{this.dateCreated}}</p>
+                </div>
+        
+            </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <p style="color:red; font-size:large; text-align:center;">You don't have any order yet!</p>
+    {{/if}}
+
+
+</section>

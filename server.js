@@ -55,6 +55,10 @@ app.engine('handlebars',exphbs(    {
         not_featured:function(featured){
             if(featured==="no")
                 return "selected";
+        },
+        is_rent:function(rentOrBuy){
+            if(rentOrBuy==="rent")
+                return true;
         }
     }
 

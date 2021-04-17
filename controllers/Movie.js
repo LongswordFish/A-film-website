@@ -43,11 +43,17 @@ router.get("/listing/:type",async (req,res)=>{
             //     try{
 
             //         let returnSchools =[];
-            //         returnSchools=await shoolModel.find({noOfStudents:25});
+            //         returnSchools=await shoolModel.find({noOfStudents:25})
+            //         .then(async ()=>{
+            //             const af= await balbla.
+            //         })
+            //         .catch()
             //         schoolSession=returnSchools.map((school)=>{
             //             const {_id,name,noOfStudents,location}=school;
             //             return {_id,name,noOfStudents,location};
             //         });
+
+
 
             //     }
             //     catch(error){
@@ -113,20 +119,19 @@ router.get("/movies/:_id",async (req,res)=>{
 });
 
 
-router.post("/movies/:_id",async(req,res)=>{
+router.post("/movies/:_id",isLoggedIn,async (req,res)=>{
 
     try{
         if(req.session.shoppingCart===undefined){
             req.session.shoppingCart=[];
-        }
-    
+        }    
+
         const returnMovie= await movieModel.findById(req.params._id)
         const item={
             rentOrBuy:req.body.rentOrBuy,
             movie:returnMovie
         }
         req.session.shoppingCart.push(item);
-       // console.log(req.session.shoppingCart);
 
         req.session.shoppingCart.map((item)=>{
             console.log(item.movie.movie_title);
@@ -198,6 +203,7 @@ router.post("/add",isLoggedIn,isAdmin,movieValidation,async (req,res)=>{
 
         //create a new variable "fileName" used for update
         var small_pic_name = "", large_pic_name="";
+        console.log(`req.files.small_picture.name is ${req.files.small_picture.name}`);
 
        small_pic_name=`movie_small_pic_${returnMovie._id}${path.parse(req.files.small_picture.name).ext}`;
 
@@ -253,15 +259,7 @@ router.get("/viewAll",isLoggedIn,isAdmin,(req,res)=>{
     .catch(error=>console.log(`Error during reading from database: ${error}`));
 });
 
-//router to delete movie
-router.delete("/delete/:_id",isLoggedIn,isAdmin,(req,res)=>{
-    movieModel.deleteOne({_id:req.params._id})
-    .then(()=>{
-        res.redirect("/movie/viewAll");
-    })
-    .catch(error=>console.log(`Error during deleting one document from database: ${error}`));
 
-});
 
 
 //Route to direct user to edit task form
@@ -271,6 +269,8 @@ router.get("/edit/:_id",isLoggedIn,isAdmin,(req,res)=>{
     movieModel.findById(req.params._id)
     .then((movie)=>{
         const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=movie;
+        
+        console.log(movie_title);
         res.render("Movie/edit",{
             _id,
             movie_title,
@@ -318,6 +318,7 @@ router.put("/edit/:_id",isLoggedIn,isAdmin,movieValidation,(req,res)=>{
     .catch(error=>console.log(`Error during updating one document from database: ${error}`));
 
 })
+
 
 //router to delete movie
 router.delete("/delete/:_id",isLoggedIn,isAdmin,(req,res)=>{
