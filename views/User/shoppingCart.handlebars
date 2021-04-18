@@ -5,7 +5,7 @@
     {{#if shoppingCart}}
         <div class="row" id="listing">
             <div class="box_title">
-                <div style="width: 160px;">
+                <div class="not_for_phone" style="width: 160px;">
         
                 </div>
         
@@ -22,7 +22,7 @@
             </div>
             {{#each shoppingCart}}
                 <div class="row" id="box_listing">
-                    <img src="/upload/{{this.movie.large_picture}}">
+                    <img class="not_for_phone" src="/upload/{{this.movie.large_picture}}">
                     <div>
                         <p>{{this.movie.movie_title}}</p>
                     </div>
@@ -53,9 +53,9 @@
         </div>
         <div class="buttons_area">
             {{!-- <button type="reset" id="clearBtn" class="btn btn-secondary" style="margin-right: 30px;">Clear</button> --}}
-            <a href="/movie/listing/all"><input type="button" value="get more movies" class="btn btn-primary" style="width:160px" /></a>
-            <a href="/user/clearOrder"><input type="button" value="clear" class="btn btn-danger" style="width:100px" /></a>
-            <a href="/user/confirmOrder"><input type="button" value="confirm" class="btn btn-success" style="width:100px" /></a>
+            <a href="/movie/listing/all"><input type="button" value="get more movies" class="btn btn-primary big_btn"  /></a>
+            <a href="/user/clearOrder"><input type="button" value="clear" class="btn btn-danger small_btn"  /></a>
+            <a href="/user/confirmOrder"><input type="button" value="confirm" class="btn btn-success small_btn"  /></a>
         </div>
     
     {{else}}

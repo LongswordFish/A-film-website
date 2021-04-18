@@ -586,4 +586,44 @@ h5.card-title{
 
 }
 
+.big_btn{
+  width:160px 
+}
+
+.small_btn{
+  width:100px
+}
+
+@media only screen and (max-device-width: 700px){
+  .not_for_phone{
+    display: none;
+  }
+
+
+  #box_listing{
+    height:auto;
+  }
+
+  .buttons_area{
+    width: 60%;;
+    display:block;
+  }
+
+  .big_btn{
+    width:160px ;
+    margin-bottom:20px;
+  }
+  
+  .small_btn{
+    width:100px
+  }
+
+
+  #box_listing div{
+    width: 100%;
+  }
+
+}
+
+
 /* For shoppingCart page */

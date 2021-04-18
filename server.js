@@ -3,7 +3,7 @@
 //     student email: jyu205@myseneca.ca
 //     assignment: assignment 2 for web322
 //     date: 14 Feb. 2021
-//     version 2: 3 March 2021
+//     last edit: 18th April 2021
 //     all the styles are in the public/css/style.css
 //     all the js files are in the public/js directory with the name of pageName.js
 
