@@ -151,31 +151,6 @@ router.get("/add",isLoggedIn,isAdmin,(req,res)=>{
     });
 });
 
-// router.get("/addAll",(req,res)=>{
-
-//     let newMovies=movies.getAllMovies().map(async(eachMovie)=>{
-
-//         const {title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=eachMovie;
-//         const newMovie={
-//             movie_title:title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture
-//         }
-//         const movie = new movieModel(newMovie);
-    
-//         try {
-//             //save the new modeled userobject 
-//             return returnMovie=await movie.save();
-//         }
-//         catch (error) {
-//             console.log(` ${error}`);
-//         }
-//     })
-
-// });
-
-// router.get("/deleteAll",(req,res)=>{
-//     movieModel.deleteMany(());
-// });
-
 
 //route for adding movie
 router.post("/add",isLoggedIn,isAdmin,movieValidation,async (req,res)=>{
@@ -263,7 +238,6 @@ router.get("/viewAll",isLoggedIn,isAdmin,(req,res)=>{
 
 
 //Route to direct user to edit task form
-
 router.get("/edit/:_id",isLoggedIn,isAdmin,(req,res)=>{
 
     movieModel.findById(req.params._id)
@@ -330,6 +304,7 @@ router.delete("/delete/:_id",isLoggedIn,isAdmin,(req,res)=>{
 
 });
 
+//search movies by title and type
 router.post("/search",async (req,res)=>{
 
     try{
@@ -374,3 +349,32 @@ router.post("/search",async (req,res)=>{
 });
 
 module.exports=router;
+
+
+
+
+// router.get("/addAll",(req,res)=>{
+
+//     let newMovies=movies.getAllMovies().map(async(eachMovie)=>{
+
+//         const {title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=eachMovie;
+//         const newMovie={
+//             movie_title:title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture
+//         }
+//         const movie = new movieModel(newMovie);
+    
+//         try {
+//             //save the new modeled userobject 
+//             return returnMovie=await movie.save();
+//         }
+//         catch (error) {
+//             console.log(` ${error}`);
+//         }
+//     })
+
+// });
+
+// router.get("/deleteAll",(req,res)=>{
+//     movieModel.deleteMany(());
+// });
+

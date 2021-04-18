@@ -1,0 +1,66 @@
+<section id="orderDetail">
+    <section style="text-align: center;">
+        <p style="font-size:25px;color:rgb(0, 255, 128)">Order Detail</p>
+    </section>
+    {{#if order}}
+        <div class="row" id="listing">
+            <div class="box_title">
+                <div style="width: 160px;">
+        
+                </div>
+        
+                <div>
+                    <p>Movie Title</p>
+                </div>
+                <div>
+                    <p>Purchase Type</p>
+                </div>
+        
+                <div>
+                    <p>Price</p>
+                </div>
+            </div>
+            {{#each order}}
+                <div class="row" id="box_listing">
+                    <img src="/upload/{{this.movie.large_picture}}">
+                    <div>
+                        <p>{{this.movie.movie_title}}</p>
+                    </div>
+                    <div>
+                        <p>{{this.rentOrBuy}}</p>
+                    </div>
+
+                    <div>
+                        {{#if (is_rent this.rentOrBuy)}}
+                            <p>${{this.movie.price_to_rent}}</p>
+                        {{else}}
+                            <p>${{this.movie.price_to_purchase}}</p>
+                        {{/if}}
+                    </div>           
+                </div>
+            {{/each}}
+        
+            <div id="sum_area" style="">
+                <div>
+                    <p>Sum:</p>
+                </div>
+        
+                <div>
+                    <p>${{total}}</p>
+                </div>
+            </div>
+        
+        </div>
+        <div class="buttons_area">
+            {{!-- <button type="reset" id="clearBtn" class="btn btn-secondary" style="margin-right: 30px;">Clear</button> --}}
+            <a href="/user/clearOrder"><input type="button" value="clear" class="btn btn-danger" style="width:100px" /></a>
+            <a href="/user/confirmOrder"><input type="button" value="confirm" class="btn btn-success" style="width:100px" /></a>
+        </div>
+    
+    {{else}}
+        <p style="color:red; font-size:large; text-align:center;">This order is non-exist!</p>
+    {{/if}}
+
+
+   
+</section>

@@ -84,6 +84,7 @@ router.get("/admin",isLoggedIn,isAdmin,(req,res)=>{
 })
 
 
+//user's shoppingCart
 router.get("/shoppingCart",isLoggedIn,async(req,res)=>{
 
         res.render("User/shoppingCart", {
@@ -92,16 +93,20 @@ router.get("/shoppingCart",isLoggedIn,async(req,res)=>{
     
 });
 
+//clean the order for the user
 router.get("/clearOrder",isLoggedIn,(req,res)=>{
 
+    //reset shoppingCart to empty
     req.session.shoppingCart=[];
 
     res.redirect("/user/shoppingCart");
 
 });
 
+//add order fo the user
 router.get("/confirmOrder",isLoggedIn,async (req,res)=>{
 
+    //calculate total
     const total = res.locals.shoppingCart.reduce((prev, cur)=> {
         if(cur.rentOrBuy=="rent")
             return cur.movie.price_to_rent + prev;
@@ -109,16 +114,18 @@ router.get("/confirmOrder",isLoggedIn,async (req,res)=>{
             return cur.movie.price_to_purchase + prev; 
     }, 0);
 
-    
+    // create new order object
     const items=req.session.shoppingCart;
     const order={items,total,createdBy:req.session.userInfo.email};
     //console.log(order);
 
+    //create new order object for mongoDb
     const newOrder=new orderModel(order);
+
+    //save the order
     const returnOrder=await newOrder.save();
 
-
-
+    //send the email
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     let msg = {
@@ -147,21 +154,21 @@ router.get("/confirmOrder",isLoggedIn,async (req,res)=>{
             console.error(error);
         })
 
+    //return to the dashboard
     res.redirect("/user/profile/")
 
 });
 
+//get all the orders for the user
 router.get("/orderListing",isLoggedIn,async(req,res)=>{
     try{
+        // get all the orders from the user
         const returnOrders=await orderModel.find({"createdBy":req.session.userInfo.email});
 
         //console.log(returnOrders);
-
         if(returnOrders==null){
-            msg="You don't have any orders."
             res.render("User/orderListing",{
                 title:"orderListing",
-                msg,
             });
         }else{
 
@@ -169,7 +176,6 @@ router.get("/orderListing",isLoggedIn,async(req,res)=>{
                 const {_id,dateCreated,total}=order;
                 return {_id,dateCreated:moment(dateCreated).format('MMMM Do YYYY, h:mm:ss a'),total};
             });
-
             
             res.render("User/orderListing",{
                 title:"orderListing",
@@ -181,6 +187,33 @@ router.get("/orderListing",isLoggedIn,async(req,res)=>{
     catch(err){console.log(`err is ${err}`);}
 
 });
+
+
+
+router.get("/order/:_id",isLoggedIn,async (req,res)=>{
+    try{
+        // get all the orders from the user
+        const returnOrder=await orderModel.find({_id:req.params._id});
+
+        //console.log(returnOrders);
+        if(returnOrders==null){
+            res.render("User/orderListing",{
+                title:"orderListing",
+            });
+        }else{
+
+            const order=returnOrder.items;
+            const total=returnOrder.total;
+            res.render("User/orderDetail",{
+                title:"orderDetail",
+                order,
+                total,
+            });
+        }
+
+    }
+    catch(err){console.log(`err is ${err}`);}
+})
 
 
 router.get("/logout/",isLoggedIn,(req,res)=>{
