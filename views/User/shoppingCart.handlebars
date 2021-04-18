@@ -1,6 +1,6 @@
 <section id="shoppingCart">
     <section style="text-align: center;">
-        <p style="font-size:25px;color:rgb(0, 255, 128)">Shopping List</p>
+        <p style="font-size:25px;">Shopping List</p>
     </section>
     {{#if shoppingCart}}
         <div class="row" id="listing">
@@ -53,6 +53,7 @@
         </div>
         <div class="buttons_area">
             {{!-- <button type="reset" id="clearBtn" class="btn btn-secondary" style="margin-right: 30px;">Clear</button> --}}
+            <a href="/movie/listing/all"><input type="button" value="get more movies" class="btn btn-primary" style="width:160px" /></a>
             <a href="/user/clearOrder"><input type="button" value="clear" class="btn btn-danger" style="width:100px" /></a>
             <a href="/user/confirmOrder"><input type="button" value="confirm" class="btn btn-success" style="width:100px" /></a>
         </div>

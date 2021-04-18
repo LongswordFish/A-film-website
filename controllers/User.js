@@ -192,11 +192,13 @@ router.get("/orderListing",isLoggedIn,async(req,res)=>{
 
 router.get("/order/:_id",isLoggedIn,async (req,res)=>{
     try{
-        // get all the orders from the user
-        const returnOrder=await orderModel.find({_id:req.params._id});
+        console.log(req.params._id);
+        // get the order
+        const returnOrder=await orderModel.findOne({_id:req.params._id});
+
 
         //console.log(returnOrders);
-        if(returnOrders==null){
+        if(returnOrder==null){
             res.render("User/orderListing",{
                 title:"orderListing",
             });

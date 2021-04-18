@@ -38,32 +38,6 @@ router.get("/listing/:type",async (req,res)=>{
                 //films = movies.getAllMovies()
             }
 
-
-            // (async ()=>{
-            //     try{
-
-            //         let returnSchools =[];
-            //         returnSchools=await shoolModel.find({noOfStudents:25})
-            //         .then(async ()=>{
-            //             const af= await balbla.
-            //         })
-            //         .catch()
-            //         schoolSession=returnSchools.map((school)=>{
-            //             const {_id,name,noOfStudents,location}=school;
-            //             return {_id,name,noOfStudents,location};
-            //         });
-
-
-
-            //     }
-            //     catch(error){
-            //         console.log(`error is ${error}`);
-
-            //     }
-            // })();
-
-
-
             const localFilms=films.map((film)=>{
                 const {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}=film;
                 return {_id,movie_title,type,movie_type,price_to_rent,price_to_purchase,description,featured,small_picture,large_picture}
