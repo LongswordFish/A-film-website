@@ -2,22 +2,26 @@
 A film website of web 322 assignment
 
 ########### project introduction
+
 FishStreaming is a website that provides film listing, film searching, film purchassing services. 
 This project using node.js and express for the back-end. Bootstrap for front-end.
 Express-handlbars is used as the engine.
 Express-session is used for keeping the status of the user.
 
 ########### key information
+
 For registration, the email has to be unique; the password needs at least 8 char, one uppercase, one lowercase, one digit are needed.
 Also for the registration, 10-digits of phone number is needed. For the test purpost, if you don't want to enter a valid phone, enter 0 instead. But you won't receive the welcome email and msg if you enter 0. 
 If you don't want to register, try '2@2.com' as the email and 'Qq111111' as the psw for an ordinary user to sign in; '1@1.ca' and also 'Qq111111' for the admin account. 
 
 ########### Environment
+
 node.js
 express
 engine:express-handlebars
 
 ########### Deployment
+
 1. This project is deployed on Heroku. Check it here: https://fishstreaming.herokuapp.com/
 
 2. If you want to run it locally, please do:
